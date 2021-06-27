@@ -3,8 +3,11 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import Navbar from "./components/Navbar/Navbar";
 import Feed from "./pages/Feed/Feed";
+import Auth from "./pages/Auth/Auth";
+import { useSelector } from "react-redux";
 const App = () => {
-  return (
+  const user = useSelector((state) => state.user);
+  return user ? (
     <BrowserRouter>
       <Navbar />
       <Grid container justify="center">
@@ -20,6 +23,8 @@ const App = () => {
         </Grid>
       </Grid>
     </BrowserRouter>
+  ) : (
+    <Auth />
   );
 };
 export default App;
