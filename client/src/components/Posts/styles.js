@@ -24,5 +24,6 @@ export default makeStyles(() => ({
   posts: {
     display: "flex",
     flexDirection: "column-reverse",
+    margin: "20px 0",
   },
 }));

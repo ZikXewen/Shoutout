@@ -13,4 +13,7 @@ export default makeStyles(() => ({
   list: {
     width: "250px",
   },
+  logoutButton: {
+    marginLeft: "30px",
+  },
 }));

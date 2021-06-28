@@ -9,7 +9,7 @@ export const getPosts = async (req, res) => {
   }
 };
 export const createPost = async (req, res) => {
-  const newPost = new Post(req.body); // Might have to change createdAt
+  const newPost = new Post({ ...req.body, createdAt: Date.now() }); // Might have to change createdAt
   try {
     await newPost.save();
     res.status(201).json(newPost);

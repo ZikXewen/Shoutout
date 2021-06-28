@@ -5,7 +5,6 @@ import {
   IconButton,
   Typography,
 } from "@material-ui/core";
-import OutlinedArrowIcon from "@material-ui/icons/ForwardOutlined";
 import ArrowIcon from "@material-ui/icons/Forward";
 import moment from "moment";
 
@@ -29,7 +28,9 @@ const Post = ({ post }) => {
         {/* prettier-ignore */}
         <Typography>{`${post.creator} : ${moment(post.createdAt).fromNow()}`}</Typography>
         <Typography variant="h6">{post.title}</Typography>
-        <Typography variant="body1">{post.content}</Typography>
+        <Typography variant="body1" style={{ whiteSpace: "pre-line" }}>
+          {post.content}
+        </Typography>
       </CardContent>
     </Card>
   );

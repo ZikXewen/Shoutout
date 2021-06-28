@@ -20,11 +20,11 @@ const Posts = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+  const user = useSelector((state) => state.auth);
   const [focusShare, setFocusShare] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    creator: "User",
   });
   useEffect(() => {
     dispatch(getPosts());
@@ -33,12 +33,11 @@ const Posts = () => {
     setFormData({
       title: "",
       content: "",
-      creator: "User",
     });
     setFocusShare(false);
   };
   const handleSubmit = () => {
-    dispatch(createPost(formData));
+    dispatch(createPost({ ...formData, creator: user.profile.name }));
     handleClear();
   };
   return (
@@ -49,7 +48,11 @@ const Posts = () => {
           <Container className={classes.shareForm}>
             <TextField
               variant="outlined"
-              label={focusShare ? "Title" : "Share your own idea, User"}
+              label={
+                focusShare
+                  ? "Title"
+                  : `Share your own idea, ${user?.profile.givenName}`
+              }
               fullWidth
               className={classes.shareField}
               size="small"
@@ -111,7 +114,7 @@ const Posts = () => {
       {!posts.length ? (
         <CircularProgress className={classes.progress} />
       ) : (
-        <Container className={classes.posts}>
+        <Container className={classes.posts} disableGutters>
           {posts.map((post) => (
             <Post post={post} />
           ))}

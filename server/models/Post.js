@@ -4,10 +4,6 @@ const postSchema = mongoose.Schema({
   content: String,
   creator: String,
   likes: { type: Number, default: 0 },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
+  createdAt: Date,
 });
-const PostMessage = mongoose.model("PostMessage", postSchema);
-export default PostMessage;
+export default mongoose.model("PostMessage", postSchema);
