@@ -3,7 +3,6 @@ export default makeStyles({
   card: {
     display: "flex",
     flexDirection: "row",
-    margin: "10px 0",
   },
   likes: {
     display: "flex",
@@ -14,5 +13,13 @@ export default makeStyles({
   },
   downArrow: {
     transform: "rotate(+90deg)",
+  },
+  avatar: {
+    width: "25px",
+    height: "25px",
+    marginRight: "15px",
+  },
+  multiline: {
+    whiteSpace: "pre-line",
   },
 });

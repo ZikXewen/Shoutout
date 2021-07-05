@@ -9,11 +9,20 @@ export const getPosts = async (req, res) => {
   }
 };
 export const createPost = async (req, res) => {
-  const newPost = new Post({ ...req.body, createdAt: Date.now() }); // Might have to change createdAt
+  const newPost = new Post({ ...req.body, createdAt: Date.now() });
   try {
     await newPost.save();
     res.status(201).json(newPost);
   } catch (error) {
     res.status(409).json({ message: error.message });
+  }
+};
+export const deletePost = async (req, res) => {
+  const { postId } = req.params;
+  try {
+    await Post.findByIdAndDelete(postId);
+    res.status(200).json({ message: "Successfully Deleted" });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 };

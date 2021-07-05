@@ -15,4 +15,9 @@ export default makeStyles(() => ({
     fontSize: "3em",
     marginRight: "20px",
   },
+  stickerShop: {
+    position: "fixed",
+    bottom: "10px",
+    right: "10px",
+  },
 }));

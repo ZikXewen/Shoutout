@@ -34,7 +34,7 @@ const Navbar = () => {
           <Typography variant="h5">Komuniti</Typography>
           <Typography
             style={{ marginLeft: "auto" }}
-          >{`Logged in as... ${user?.profile.name}`}</Typography>
+          >{`Logged in as... ${user.name}`}</Typography>
           <Button
             color="secondary"
             variant="contained"
@@ -49,7 +49,7 @@ const Navbar = () => {
       </AppBar>
       <Drawer open={open} onClose={drawerClick} className={classes.drawer}>
         <List className={classes.list}>
-          <ListItem>
+          <ListItem key="menuHead">
             <IconButton onClick={drawerClick} className={classes.menuButton}>
               <MenuIcon />
             </IconButton>
@@ -57,7 +57,7 @@ const Navbar = () => {
           </ListItem>
           {["Community", "Contact", "Profile", "Notification", "Support"].map(
             (text, index) => (
-              <ListItem button>
+              <ListItem button key={`menu${index}`}>
                 <ListItemIcon>
                   <MoodIcon />
                 </ListItemIcon>

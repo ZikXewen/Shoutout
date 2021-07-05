@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
-import { createPost, getPosts } from "../../actions/posts";
+import { useEffect } from "react";
+import { getPosts } from "../../actions/posts";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Container,
-  Button,
-  Card,
-  CardContent,
-  CardActions,
-  TextField,
-  CircularProgress,
-  Collapse,
-} from "@material-ui/core";
-import FaceIcon from "@material-ui/icons/Face";
+import { Container, CircularProgress } from "@material-ui/core";
 
+import Form from "./Form/Form";
 import Post from "./Post/Post";
 import useStyles from "./styles";
 
@@ -20,103 +11,19 @@ const Posts = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
-  const user = useSelector((state) => state.auth);
-  const [focusShare, setFocusShare] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    content: "",
-  });
+
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
-  const handleClear = () => {
-    setFormData({
-      title: "",
-      content: "",
-    });
-    setFocusShare(false);
-  };
-  const handleSubmit = () => {
-    dispatch(createPost({ ...formData, creator: user.profile.name }));
-    handleClear();
-  };
   return (
     <Container>
-      <Card>
-        <CardContent className={classes.cardHeader}>
-          <FaceIcon className={classes.userIcon} />
-          <Container className={classes.shareForm}>
-            <TextField
-              variant="outlined"
-              label={
-                focusShare
-                  ? "Title"
-                  : `Share your own idea, ${user?.profile.givenName}`
-              }
-              fullWidth
-              className={classes.shareField}
-              size="small"
-              value={formData.title}
-              onFocus={() => {
-                setFocusShare(true);
-              }}
-              onBlur={() => {
-                if (!formData.title && !formData.content) setFocusShare(false);
-              }}
-              onChange={(e) => {
-                setFormData({ ...formData, title: e.target.value });
-              }}
-            />
-            <Collapse in={focusShare}>
-              <TextField
-                variant="outlined"
-                label="Content"
-                fullWidth
-                className={classes.shareField}
-                size="small"
-                value={formData.content}
-                onFocus={() => {
-                  setFocusShare(true);
-                }}
-                onBlur={() => {
-                  if (!formData.title && !formData.content)
-                    setFocusShare(false);
-                }}
-                onChange={(e) => {
-                  setFormData({ ...formData, content: e.target.value });
-                }}
-                multiline
-                rowsMax="10"
-              />
-            </Collapse>
-          </Container>
-        </CardContent>
-        <CardActions>
-          <Button>Add Stickers</Button>
-          <Button>Add Tags</Button>
-          <Button
-            style={{ marginLeft: "auto" }}
-            disabled={!formData.title && !formData.content}
-            onClick={handleClear}
-            color="secondary"
-          >
-            Clear
-          </Button>
-          <Button
-            disabled={!formData.title || !formData.content}
-            onClick={handleSubmit}
-            color="primary"
-          >
-            Share!
-          </Button>
-        </CardActions>
-      </Card>
+      <Form />
       {!posts.length ? (
         <CircularProgress className={classes.progress} />
       ) : (
         <Container className={classes.posts} disableGutters>
-          {posts.map((post) => (
-            <Post post={post} />
+          {posts.map((post, index) => (
+            <Post post={post} key={`post${index}`} />
           ))}
         </Container>
       )}

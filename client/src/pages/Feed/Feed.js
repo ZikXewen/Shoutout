@@ -29,6 +29,9 @@ const Feed = () => {
           </Container>
         </Grid>
       </Grid>
+      <Button component={Link} to="/shop" className={classes.stickerShop}>
+        Get Stickers!
+      </Button>
     </>
   );
 };

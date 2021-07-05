@@ -11,4 +11,8 @@ export default makeStyles(() => ({
   title: {
     marginBottom: "10px",
   },
+  actions: {
+    display: "flex",
+    flexDirection: "column",
+  },
 }));
