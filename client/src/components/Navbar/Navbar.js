@@ -9,11 +9,15 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
+  Box,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoodIcon from "@material-ui/icons/Mood";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+import logoSvg from "../../img/logo.svg";
 import { logout } from "../../actions/auth";
 import useStyles from "./styles";
 const Navbar = () => {
@@ -31,7 +35,9 @@ const Navbar = () => {
           <IconButton onClick={drawerClick} className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h5">Komuniti</Typography>
+          <Button component={Link} to="/" style={{ padding: 0 }}>
+            <img src={logoSvg} style={{ height: "64px", width: "64px" }} />
+          </Button>
           <Typography
             style={{ marginLeft: "auto" }}
           >{`Logged in as... ${user.name}`}</Typography>

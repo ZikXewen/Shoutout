@@ -16,8 +16,8 @@ export const getUser = async (req, res) => {
         await User.findByIdAndUpdate(_id, oldUser);
         await Post.updateMany(
           { creatorId: _id },
-          { $set: { creator: name, creatorImageUrl: imageUrl } }
-        ); //Update name in posts
+          { $set: { creatorName: name, creatorImageUrl: imageUrl } }
+        );
       }
       res.status(200).json(oldUser);
     }

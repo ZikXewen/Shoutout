@@ -3,6 +3,7 @@ import { Link, Switch, Route } from "react-router-dom";
 
 import useStyles from "./styles";
 import Posts from "../../components/Posts/Posts";
+import Events from "../../components/Events/Events";
 import { Grid } from "@material-ui/core";
 import Navbar from "../../components/Navbar/Navbar";
 
@@ -17,13 +18,16 @@ const Feed = () => {
           <Container>
             {/* prettier-ignore */}
             <Toolbar className={classes.typesBar}>
-        <Button fullWidth component = {Link} to="/posts">Posts</Button>
-        <Button fullWidth component = {Link} to="/events">Events</Button>
-        <Button fullWidth component = {Link} to="/announcements">Announcements</Button>
-      </Toolbar>
+              <Button fullWidth component = {Link} to="/posts">Posts</Button>
+              <Button fullWidth component = {Link} to="/events">Events</Button>
+              <Button fullWidth component = {Link} to="/announcements">Announcements</Button>
+            </Toolbar>
             <Switch>
               <Route exact path="/posts">
                 <Posts />
+              </Route>
+              <Route exact path="/events">
+                <Events />
               </Route>
             </Switch>
           </Container>

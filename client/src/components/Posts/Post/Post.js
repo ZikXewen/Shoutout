@@ -6,15 +6,13 @@ import {
   CardContent,
   IconButton,
   Typography,
-  Paper,
-  Popper,
-  MenuList,
-  MenuItem,
-  ClickAwayListener,
-  Grow,
   Avatar,
+  Dialog,
+  DialogActions,
+  DialogTitle,
 } from "@material-ui/core";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+
+import DeleteIcon from "@material-ui/icons/Delete";
 import ArrowIcon from "@material-ui/icons/Forward";
 import ShareIcon from "@material-ui/icons/Share";
 import SaveIcon from "@material-ui/icons/Bookmark";
@@ -32,7 +30,7 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
-  const [menuAnchor, setMenuAnchor] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   return (
     <Card className={classes.card}>
       <CardActions disableSpacing className={classes.likes}>
@@ -49,11 +47,10 @@ const Post = ({ post }) => {
           <Box display="flex" flexDirection="row" alignItems="center">
             <Avatar src={post.creatorImageUrl} className={classes.avatar} />
             <Typography>
-              {`${post.creator} : ${moment(post.createdAt).fromNow()}`}
+              {`${post.creatorName} : ${moment(post.createdAt).fromNow()}`}
             </Typography>
           </Box>
-          <Typography variant="h6">{post.title}</Typography>
-          <Typography variant="body1" classname={classes.multiline}>
+          <Typography variant="h6" classname={classes.multiline}>
             {post.content}
           </Typography>
           <Box paddingX="38%">
@@ -79,45 +76,37 @@ const Post = ({ post }) => {
           </Button>
         </CardActions>
       </Box>
-      {user && user.name === post.creator && (
+      {user && user.name === post.creatorName && (
         <Box padding="8px">
           <IconButton
-            onClick={(e) => {
-              setMenuAnchor(e.currentTarget);
+            onClick={() => {
+              setDialogOpen(true);
             }}
           >
-            <MoreHorizIcon />
+            <DeleteIcon />
           </IconButton>
-          <Popper
-            open={Boolean(menuAnchor)}
-            anchorEl={menuAnchor}
-            transition
-            disablePortal
-          >
-            {(props) => (
-              <Grow {...props.TransitionProps}>
-                <Paper>
-                  <ClickAwayListener
-                    onClickAway={() => {
-                      setMenuAnchor(null);
-                    }}
-                  >
-                    <MenuList>
-                      <MenuItem>Edit</MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          setMenuAnchor(null);
-                          dispatch(deletePost(post._id));
-                        }}
-                      >
-                        Delete
-                      </MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Popper>
+          <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+            <DialogTitle>Confirm Delete? (Irreversible)</DialogTitle>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  setDialogOpen(false);
+                  setTimeout(() => {
+                    dispatch(deletePost(post._id));
+                  }, 100); //Timeout for animation, can disable later
+                }}
+              >
+                Yes
+              </Button>
+              <Button
+                onClick={() => {
+                  setDialogOpen(false);
+                }}
+              >
+                No
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       )}
     </Card>

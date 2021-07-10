@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  DialogActions,
   Container,
   Button,
   Box,
@@ -18,7 +19,6 @@ import {
   Avatar,
 } from "@material-ui/core";
 import Image from "material-ui-image";
-import FaceIcon from "@material-ui/icons/Face";
 
 import Stickers from "../../../img/stickers";
 import useStyles from "./styles";
@@ -28,32 +28,33 @@ export default () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
   const [stickerPop, setStickerPop] = useState(false);
+  const [openTags, setOpenTags] = useState(false);
   const [focusShare, setFocusShare] = useState(false);
   const [formData, setFormData] = useState({
-    title: "",
     content: "",
+    tags: [],
     sticker: "",
   });
   const handleClear = () => {
+    setFocusShare(false);
+    setOpenTags(false);
     setFormData({
-      title: "",
       content: "",
+      tags: [],
       sticker: "",
     });
-    setFocusShare(false);
   };
   const handleSubmit = () => {
     dispatch(
       createPost({
         ...formData,
-        creator: user.name,
+        creatorName: user.name,
         creatorId: user._id,
         creatorImageUrl: user.imageUrl,
       })
     );
     handleClear();
   };
-  console.log(user);
   return (
     <>
       <Card>
@@ -62,46 +63,44 @@ export default () => {
           <Container className={classes.shareForm}>
             <TextField
               variant="outlined"
-              label={focusShare ? "Title" : `Share your own idea, ${user.name}`}
+              label={
+                focusShare ? "Content" : `Share your own idea, ${user.name}`
+              }
               fullWidth
               className={classes.shareField}
               size="small"
-              value={formData.title}
+              value={formData.content}
               onFocus={() => {
                 setFocusShare(true);
               }}
               onBlur={() => {
-                if (!formData.title && !formData.content) setFocusShare(false);
+                if (!formData.content) setFocusShare(false);
               }}
               onChange={(e) => {
-                setFormData({ ...formData, title: e.target.value });
+                setFormData({ ...formData, content: e.target.value });
               }}
               inputProps={{ maxLength: 50 }}
             />
-            <Collapse in={focusShare}>
+            <Collapse in={openTags}>
               <TextField
+                label="Tags (space separated)"
                 variant="outlined"
-                label="Content"
                 fullWidth
-                className={classes.shareField}
                 size="small"
-                value={formData.content}
-                onFocus={() => {
-                  setFocusShare(true);
-                }}
-                onBlur={() => {
-                  if (!formData.title && !formData.content)
-                    setFocusShare(false);
-                }}
+                className={classes.shareField}
                 onChange={(e) => {
-                  setFormData({ ...formData, content: e.target.value });
+                  setFormData({
+                    ...formData,
+                    tags: e.target.value.split(" "),
+                  });
                 }}
-                multiline
-                rowsMax="10"
-                inputProps={{ maxLength: 500 }}
+                value={formData.tags.join(" ").replace("  ", " ").trimLeft()}
+                inputProps={{ maxLength: 50 }}
               />
+            </Collapse>
+            <Collapse in={formData.sticker}>
               <Box paddingX="38%">
-                {formData.sticker && <Image src={formData.sticker} />}
+                <Image src={formData.sticker} />
               </Box>
             </Collapse>
           </Container>
@@ -109,22 +108,31 @@ export default () => {
         <CardActions>
           <Button
             onClick={() => {
+              setOpenTags(!openTags);
+              setFormData({ ...formData, tags: [] });
+            }}
+          >
+            {openTags ? "Clear Tags" : "Add Tags"}
+          </Button>
+          <Button
+            onClick={() => {
               setStickerPop(true);
             }}
           >
             Add Stickers
           </Button>
-          <Button>Add Tags</Button>
           <Button
             style={{ marginLeft: "auto" }}
-            disabled={!formData.title && !formData.content}
+            disabled={
+              !formData.content && !formData.sticker && !formData.tags[0]
+            }
             onClick={handleClear}
             color="secondary"
           >
             Clear
           </Button>
           <Button
-            disabled={!formData.title || !formData.content}
+            disabled={!formData.content}
             onClick={handleSubmit}
             color="primary"
           >
@@ -156,6 +164,17 @@ export default () => {
             ))}
           </Grid>
         </DialogContent>
+        <DialogActions>
+          <Button
+            fullWidth
+            onClick={() => {
+              setFormData({ ...formData, sticker: "" });
+              setStickerPop(false);
+            }}
+          >
+            Clear Stickers
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );
