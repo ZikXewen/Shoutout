@@ -10,6 +10,7 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Grid,
 } from "@material-ui/core";
 
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -53,6 +54,11 @@ const Post = ({ post }) => {
           <Typography variant="h6" classname={classes.multiline}>
             {post.content}
           </Typography>
+          <Box display="flex">
+            {post.tags.map((tag) => (
+              <Box marginX="10px">{`#${tag}`}</Box>
+            ))}
+          </Box>
           <Box paddingX="38%">
             {post.sticker && <Image src={post.sticker} />}
           </Box>

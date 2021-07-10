@@ -5,8 +5,9 @@ export default makeStyles(() => ({
     margin: "30px",
   },
   typesBar: {
+    margin: "30px 0",
+    width: "100%",
     justifyContent: "center",
-    marginBottom: "10px",
   },
   cardHeader: {
     display: "flex",

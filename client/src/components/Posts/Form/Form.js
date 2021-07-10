@@ -32,7 +32,7 @@ export default () => {
   const [focusShare, setFocusShare] = useState(false);
   const [formData, setFormData] = useState({
     content: "",
-    tags: [],
+    tags: "",
     sticker: "",
   });
   const handleClear = () => {
@@ -40,7 +40,7 @@ export default () => {
     setOpenTags(false);
     setFormData({
       content: "",
-      tags: [],
+      tags: "",
       sticker: "",
     });
   };
@@ -48,6 +48,7 @@ export default () => {
     dispatch(
       createPost({
         ...formData,
+        tags: formData.tags.trim().split(" "),
         creatorName: user.name,
         creatorId: user._id,
         creatorImageUrl: user.imageUrl,
@@ -91,10 +92,10 @@ export default () => {
                 onChange={(e) => {
                   setFormData({
                     ...formData,
-                    tags: e.target.value.split(" "),
+                    tags: e.target.value,
                   });
                 }}
-                value={formData.tags.join(" ").replace("  ", " ").trimLeft()}
+                value={formData.tags.replace("  ", " ")}
                 inputProps={{ maxLength: 50 }}
               />
             </Collapse>
@@ -109,7 +110,7 @@ export default () => {
           <Button
             onClick={() => {
               setOpenTags(!openTags);
-              setFormData({ ...formData, tags: [] });
+              setFormData({ ...formData, tags: "" });
             }}
           >
             {openTags ? "Clear Tags" : "Add Tags"}
@@ -123,9 +124,7 @@ export default () => {
           </Button>
           <Button
             style={{ marginLeft: "auto" }}
-            disabled={
-              !formData.content && !formData.sticker && !formData.tags[0]
-            }
+            disabled={!formData.content && !formData.sticker && !formData.tags}
             onClick={handleClear}
             color="secondary"
           >
