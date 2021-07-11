@@ -14,9 +14,9 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
+  }, []);
   return (
-    <Container>
+    <Container disableGutters>
       <Form />
       {!posts.length ? (
         <CircularProgress className={classes.progress} />

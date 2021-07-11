@@ -6,7 +6,7 @@ export default () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: "CLEAR" });
-  }, [dispatch]);
+  }, []);
   return (
     <Box display="flex" flexDirection="column">
       <Button variant="contained">Create an event</Button>

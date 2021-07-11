@@ -45,10 +45,13 @@ export default () => {
     });
   };
   const handleSubmit = () => {
+    let tags = [...new Set(formData.tags.trim().split(" "))].filter(
+      (tag) => tag !== ""
+    );
     dispatch(
       createPost({
         ...formData,
-        tags: formData.tags.trim().split(" "),
+        tags,
         creatorName: user.name,
         creatorId: user._id,
         creatorImageUrl: user.imageUrl,
