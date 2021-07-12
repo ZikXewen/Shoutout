@@ -6,7 +6,7 @@ export default makeStyles(() => ({
   },
   posts: {
     display: "flex",
-    flexDirection: "column-reverse",
+    flexDirection: "column",
     margin: "20px 0",
   },
 }));

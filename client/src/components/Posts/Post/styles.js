@@ -3,6 +3,7 @@ export default makeStyles({
   card: {
     display: "flex",
     flexDirection: "row",
+    marginTop: "20px",
   },
   likes: {
     display: "flex",

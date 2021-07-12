@@ -22,9 +22,9 @@ import ReportIcon from "@material-ui/icons/Report";
 import Image from "material-ui-image";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { deletePost } from "../../../actions/posts";
+import { deletePost, likePost, dislikePost } from "../../../actions/posts";
 import useStyles from "./styles";
 
 const Post = ({ post }) => {
@@ -32,15 +32,26 @@ const Post = ({ post }) => {
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
   const [dialogOpen, setDialogOpen] = useState(false);
+
   return (
     <Card className={classes.card}>
       <CardActions disableSpacing className={classes.likes}>
         <IconButton>
-          <ArrowIcon className={classes.upArrow} />
+          <ArrowIcon
+            className={classes.upArrow}
+            onClick={() => {
+              dispatch(likePost(post._id, user._id));
+            }}
+          />
         </IconButton>
-        <Typography>{post.likes?.length - post.dislikes?.length}</Typography>
+        <Typography>{post.likes.length - post.dislikes.length}</Typography>
         <IconButton>
-          <ArrowIcon className={classes.downArrow} />
+          <ArrowIcon
+            className={classes.downArrow}
+            onClick={() => {
+              dispatch(dislikePost(post._id, user._id));
+            }}
+          />
         </IconButton>
       </CardActions>
       <Box display="flex" flexDirection="column" margin="10px 0" flex="1 0">
