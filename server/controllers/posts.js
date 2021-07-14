@@ -11,7 +11,7 @@ export const countPosts = async (req, res) => {
 export const getPosts = async (req, res) => {
   const { page } = req.params;
   try {
-    const posts = await Post.find(null, null, {
+    const posts = await Post.find(null, "-comments", {
       skip: page * 10,
       limit: 10,
       sort: "-createdAt",
@@ -44,6 +44,9 @@ export const likePost = async (req, res) => {
   const oldPost = await Post.findById(postId);
   if (!oldPost) res.status(404).json({ message: "No post with such ID" });
   try {
+    oldPost.dislikes = oldPost.dislikes.filter(
+      (userDislike) => userDislike !== userId
+    );
     if (oldPost.likes.indexOf(userId) === -1) {
       oldPost.likes = [...oldPost.likes, userId];
     } else {
@@ -60,6 +63,7 @@ export const dislikePost = async (req, res) => {
   const oldPost = await Post.findById(postId);
   if (!oldPost) res.status(404).json({ message: "No post with such ID" });
   try {
+    oldPost.likes = oldPost.likes.filter((userLike) => userLike !== userId);
     if (oldPost.dislikes.indexOf(userId) === -1) {
       oldPost.dislikes = [...oldPost.dislikes, userId];
     } else {

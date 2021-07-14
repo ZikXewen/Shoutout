@@ -4,6 +4,7 @@ const postSchema = mongoose.Schema({
   creatorImageUrl: String,
   creatorId: String,
   creatorName: String,
+  comments: { type: [Object], default: [] },
   tags: { type: [String], default: [] },
   likes: { type: [String], default: [] },
   dislikes: { type: [String], default: [] },

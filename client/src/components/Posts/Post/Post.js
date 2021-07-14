@@ -36,20 +36,32 @@ const Post = ({ post }) => {
   return (
     <Card className={classes.card}>
       <CardActions disableSpacing className={classes.likes}>
-        <IconButton>
+        <IconButton
+          onClick={() => {
+            dispatch(likePost(post._id, user._id));
+          }}
+        >
           <ArrowIcon
             className={classes.upArrow}
-            onClick={() => {
-              dispatch(likePost(post._id, user._id));
+            style={{
+              color: post.likes.find((like) => like === user._id)
+                ? "green"
+                : "grey",
             }}
           />
         </IconButton>
         <Typography>{post.likes.length - post.dislikes.length}</Typography>
-        <IconButton>
+        <IconButton
+          onClick={() => {
+            dispatch(dislikePost(post._id, user._id));
+          }}
+        >
           <ArrowIcon
             className={classes.downArrow}
-            onClick={() => {
-              dispatch(dislikePost(post._id, user._id));
+            style={{
+              color: post.dislikes.find((dislike) => dislike === user._id)
+                ? "green"
+                : "grey",
             }}
           />
         </IconButton>
