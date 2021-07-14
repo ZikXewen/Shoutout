@@ -11,7 +11,9 @@ import { useState } from "react";
 
 const Feed = () => {
   const classes = useStyles();
-  const [postType, setPostType] = useState("posts");
+  const [postType, setPostType] = useState(
+    window.location.pathname.replace("/", "")
+  );
   return (
     <>
       <Navbar />

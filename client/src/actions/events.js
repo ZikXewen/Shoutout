@@ -1,26 +1,18 @@
-import { FETCH_ALL, CREATE, DELETE } from "../constants/actionTypes";
+import { EFETCH } from "../constants/actionTypes";
 import * as api from "../api";
-export const getPosts = () => async (dispatch) => {
+export const createEvent = (newEvent) => async (dispatch) => {
   try {
-    const { data } = await api.getPosts();
-    dispatch({ type: FETCH_ALL, payload: data });
+    await api.createEvent(newEvent);
+    window.location.reload();
   } catch (err) {
     console.log(err);
   }
 };
-export const createPost = (newPost) => async (dispatch) => {
+export const fetchEvents = (page) => async (dispatch) => {
   try {
-    const { data } = await api.createPost(newPost);
-    dispatch({ type: CREATE, payload: data });
+    const { data } = await api.fetchEvents(page);
+    dispatch({ type: EFETCH, payload: data });
   } catch (err) {
     console.log(err);
-  }
-};
-export const deletePost = (postId) => async (dispatch) => {
-  try {
-    await api.deletePost(postId);
-    dispatch({ type: DELETE, payload: postId });
-  } catch (error) {
-    console.log(error);
   }
 };

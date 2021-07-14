@@ -22,7 +22,7 @@ import ReportIcon from "@material-ui/icons/Report";
 import Image from "material-ui-image";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { deletePost, likePost, dislikePost } from "../../../actions/posts";
 import useStyles from "./styles";
@@ -114,8 +114,14 @@ const Post = ({ post }) => {
           >
             <DeleteIcon />
           </IconButton>
-          <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-            <DialogTitle>Confirm Delete? (Irreversible)</DialogTitle>
+          <Dialog
+            open={dialogOpen}
+            onClose={() => setDialogOpen(false)}
+            fullWidth
+          >
+            <DialogTitle>
+              Are you sure you want to delete this post? (Irreversible)
+            </DialogTitle>
             <DialogActions>
               <Button
                 onClick={() => {

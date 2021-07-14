@@ -13,3 +13,6 @@ export const dislikePost = (postId, userId) =>
 export const updateUser = (user) => API.post("/users", user);
 export const getSticker = (userId, stickerName) =>
   API.patch(`/users/${userId}/${stickerName}`);
+
+export const createEvent = (event) => API.post("/events", event);
+export const fetchEvents = (page) => API.get(`/events/${page}`);
