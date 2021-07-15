@@ -1,4 +1,4 @@
-import { EFETCH } from "../constants/actionTypes";
+import { FETCH } from "../constants/actionTypes";
 import * as api from "../api";
 export const createEvent = (newEvent) => async (dispatch) => {
   try {
@@ -11,7 +11,7 @@ export const createEvent = (newEvent) => async (dispatch) => {
 export const fetchEvents = (page) => async (dispatch) => {
   try {
     const { data } = await api.fetchEvents(page);
-    dispatch({ type: EFETCH, payload: data });
+    dispatch({ type: FETCH, payload: data });
   } catch (err) {
     console.log(err);
   }

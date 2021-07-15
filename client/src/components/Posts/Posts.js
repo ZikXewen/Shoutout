@@ -30,9 +30,7 @@ const Posts = () => {
   return (
     <Container disableGutters>
       <Form />
-      {!posts.length ? (
-        <CircularProgress className={classes.progress} />
-      ) : (
+      {posts[0] && posts[0].likes ? (
         <Container className={classes.posts} disableGutters>
           <Pagination
             count={Math.ceil(postsCount / 10)}
@@ -44,6 +42,8 @@ const Posts = () => {
             <Post post={post} key={`post${index}`} />
           ))}
         </Container>
+      ) : (
+        <CircularProgress className={classes.progress} />
       )}
     </Container>
   );

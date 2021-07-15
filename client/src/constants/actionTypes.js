@@ -10,4 +10,3 @@ export const LOGOUT = "LOGOUT";
 export const STICKER = "STICKER";
 
 //Events
-export const EFETCH = "EFETCH";
