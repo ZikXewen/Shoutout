@@ -14,5 +14,6 @@ export const updateUser = (user) => API.post("/users", user);
 export const getSticker = (userId, stickerName) =>
   API.patch(`/users/${userId}/${stickerName}`);
 
+export const countEvents = () => API.get("/events/count");
 export const createEvent = (event) => API.post("/events", event);
 export const fetchEvents = (page) => API.get(`/events/${page}`);

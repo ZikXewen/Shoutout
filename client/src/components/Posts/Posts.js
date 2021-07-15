@@ -15,17 +15,14 @@ const Posts = () => {
   const posts = useSelector((state) => state.posts);
   const [curPage, setCurPage] = useState(0);
   const [postsCount, setPostsCount] = useState(0);
-  const getPostsCount = async () => {
-    try {
-      const { data } = await countPosts();
-      setPostsCount(data.count);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   useEffect(() => {
-    getPostsCount();
-    dispatch(getPosts(curPage));
+    countPosts()
+      .then(({ data }) => {
+        setPostsCount(data.count);
+        dispatch(getPosts(curPage));
+      })
+      .catch((err) => console.log(err));
   }, [curPage]);
   return (
     <Container disableGutters>

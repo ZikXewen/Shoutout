@@ -8,7 +8,15 @@ export const createEvent = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
-export const fetchPosts = async (req, res) => {
+export const countEvents = async (req, res) => {
+  try {
+    const count = await Event.estimatedDocumentCount();
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+export const fetchEvents = async (req, res) => {
   const { page } = req.params;
   try {
     const events = await Event.find(null, "-comments", {

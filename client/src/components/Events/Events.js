@@ -1,22 +1,34 @@
-import { Box, CircularProgress } from "@material-ui/core";
-import { useEffect } from "react";
+import { Box, CircularProgress, Container } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEvents } from "../../actions/events";
 
 import Form from "./Form/Form";
 import Event from "./Event/Event";
+import { countEvents } from "../../api";
+import useStyles from "./styles";
 
 export default () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const events = useSelector((state) => state.posts);
+  const [eventsCount, setEventsCount] = useState();
+  const [curPage, setCurPage] = useState(0);
   useEffect(() => {
-    dispatch(fetchEvents(0));
-  }, []);
+    countEvents().then(({ data }) => {
+      setEventsCount(data.count);
+      dispatch(fetchEvents(curPage));
+    });
+  }, [curPage]);
   return (
     <Box display="flex" flexDirection="column">
       <Form />
       {events[0] && events[0].beginTime ? (
-        events.map((event) => <Event event={event} />)
+        <Container className={classes.events} disableGutters>
+          {events.map((event) => (
+            <Event event={event} />
+          ))}
+        </Container>
       ) : (
         <CircularProgress />
       )}
