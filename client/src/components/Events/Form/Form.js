@@ -10,8 +10,8 @@ import {
 } from "@material-ui/core";
 import ImageCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MuiPickersUtilsProvider, DateTimePicker } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 
@@ -33,6 +33,8 @@ export default () => {
   const [enableEndTime, setEnableEndTime] = useState(false);
   const [crop, setCrop] = useState({ unit: "%", aspect: 10 / 4, width: 100 });
   const [image, setImage] = useState();
+  const user = useSelector((state) => state.auth);
+
   const getCroppedImage = () => {
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
@@ -182,6 +184,9 @@ export default () => {
                 createEvent({
                   ...formData,
                   banner: getCroppedImage(),
+                  creatorName: user.name,
+                  creatorId: user._id,
+                  creatorImageUrl: user.imageUrl,
                 })
               );
               setFormData({

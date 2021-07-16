@@ -11,6 +11,10 @@ import {
   DialogActions,
   DialogTitle,
   Grid,
+  List,
+  ListItem,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -32,10 +36,12 @@ const Post = ({ post }) => {
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  const theme = useTheme();
+  const smScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdScreen = useMediaQuery(theme.breakpoints.up("md"));
   return (
     <Card className={classes.card}>
-      <CardActions disableSpacing className={classes.likes}>
+      <CardActions disableSpacing className={classes.col}>
         <IconButton
           onClick={() => {
             dispatch(likePost(post._id, user._id));
@@ -66,7 +72,13 @@ const Post = ({ post }) => {
           />
         </IconButton>
       </CardActions>
-      <Box display="flex" flexDirection="column" margin="10px 0" flex="1 0">
+      <Box
+        display="flex"
+        flexDirection="column"
+        margin="10px 0"
+        flex="1 0"
+        width="70%"
+      >
         <CardContent>
           <Box display="flex" flexDirection="row" alignItems="center">
             <Avatar src={post.creatorImageUrl} className={classes.avatar} />
@@ -77,31 +89,34 @@ const Post = ({ post }) => {
           <Typography variant="h6" classname={classes.multiline}>
             {post.content}
           </Typography>
-          <Box display="flex">
+          <List className={classes.tags}>
             {post.tags.map((tag) => (
-              <Box marginX="10px">{`#${tag}`}</Box>
+              <ListItem
+                marginX="10px"
+                className={classes.tag}
+              >{`#${tag}`}</ListItem>
             ))}
-          </Box>
-          <Box paddingX="38%">
+          </List>
+          <Box paddingX={mdScreen ? "38%" : "30%"}>
             {post.sticker && <Image src={post.sticker} />}
           </Box>
         </CardContent>
         <CardActions>
           <Button>
             <CommentIcon style={{ marginRight: "5px" }} />
-            Comments
+            {smScreen && "Comments"}
           </Button>
           <Button style={{ marginRight: "max(auto, 5px)" }}>
             <ShareIcon style={{ marginRight: "5px" }} />
-            Share
+            {smScreen && "Share"}
           </Button>
           <Button>
             <SaveIcon style={{ marginRight: "5px" }} />
-            Save
+            {smScreen && "Save"}
           </Button>
           <Button>
             <ReportIcon style={{ marginRight: "5px" }} />
-            Report
+            {smScreen && "Report"}
           </Button>
         </CardActions>
       </Box>

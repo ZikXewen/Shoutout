@@ -5,7 +5,16 @@ export default makeStyles({
     flexDirection: "row",
     marginTop: "20px",
   },
-  likes: {
+  tags: {
+    display: "flex",
+    flexDirection: "row",
+    maxWidth: "100%",
+    overflow: "auto",
+  },
+  tag: {
+    width: "fit-content",
+  },
+  col: {
     display: "flex",
     flexDirection: "column",
   },
@@ -18,7 +27,7 @@ export default makeStyles({
   avatar: {
     width: "25px",
     height: "25px",
-    marginRight: "15px",
+    marginRight: "10px",
   },
   multiline: {
     whiteSpace: "pre-line",
