@@ -30,6 +30,7 @@ export default () => {
   const [stickerPop, setStickerPop] = useState(false);
   const [openTags, setOpenTags] = useState(false);
   const [focusShare, setFocusShare] = useState(false);
+  const [confirmPop, setConfirmPop] = useState(false);
   const [formData, setFormData] = useState({
     content: "",
     tags: "",
@@ -135,7 +136,7 @@ export default () => {
           </Button>
           <Button
             disabled={!formData.content}
-            onClick={handleSubmit}
+            onClick={() => setConfirmPop(true)}
             color="primary"
           >
             Share!
@@ -176,6 +177,24 @@ export default () => {
           >
             Clear Stickers
           </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={confirmPop} onClose={() => setConfirmPop(false)} fullWidth>
+        <DialogTitle>
+          Are you sure that your content does not contain false information or
+          inappropriate phrases?
+        </DialogTitle>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              handleSubmit();
+              setConfirmPop(false);
+            }}
+          >
+            Yes (Post now!)
+          </Button>
+          <Button onClick={() => setConfirmPop(false)}>No, wait...</Button>
         </DialogActions>
       </Dialog>
     </>
