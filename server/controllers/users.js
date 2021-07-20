@@ -1,5 +1,6 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import Event from "../models/Event.js";
 
 export const getUser = async (req, res) => {
   const { googleId, name, imageUrl } = req.body;
@@ -18,11 +19,26 @@ export const getUser = async (req, res) => {
           { creatorId: _id },
           { $set: { creatorName: name, creatorImageUrl: imageUrl } }
         );
+        await Event.updateMany(
+          { creatorId: _id },
+          { $set: { creatorName: name, creatorImageUrl: imageUrl } }
+        );
       }
       res.status(200).json(oldUser);
     }
   } catch (error) {
     res.status(500).json({ message: "Someting went wrong!" });
+    console.log(error);
+  }
+};
+export const setSchool = async (req, res) => {
+  const { userId, school } = req.params;
+  try {
+    const newUser = await User.findByIdAndUpdate(userId, { $set: { school } });
+    newUser.school = school;
+    res.status(200).json(newUser);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
     console.log(error);
   }
 };

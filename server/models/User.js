@@ -7,6 +7,7 @@ export default mongoose.model(
       name: String,
       imageUrl: String,
       stickers: { type: [String], default: [] },
+      school: { type: String, default: "" },
     },
     { _id: false }
   )

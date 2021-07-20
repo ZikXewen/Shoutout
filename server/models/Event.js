@@ -11,5 +11,6 @@ export default mongoose.model(
     beginTime: Date,
     endTime: Date,
     banner: String,
+    comment: { type: [String], default: [] },
   })
 );

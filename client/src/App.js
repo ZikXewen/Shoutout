@@ -3,21 +3,42 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Feed from "./pages/Feed/Feed";
 import Auth from "./pages/Auth/Auth";
 import Shop from "./pages/Shop/Shop";
+import Init from "./pages/Init/Init";
 import { useSelector } from "react-redux";
 const App = () => {
   const user = useSelector((state) => state.auth);
   return (
     <Switch>
-      <Route exact path="/">
-        <Redirect to="/posts" />
-      </Route>
-      <Route exact path="/auth">
-        {user ? <Redirect to="/" /> : <Auth />}
-      </Route>
-      <Route exact path="/shop">
-        {user ? <Shop /> : <Redirect to="/auth" />}
-      </Route>
-      <Route path="/">{user ? <Feed /> : <Redirect to="/auth" />}</Route>
+      {user ? (
+        user.school ? (
+          <>
+            <Route exact path="/shop">
+              <Shop />
+            </Route>
+            <Route exact path="/auth">
+              <Redirect to="/" />
+            </Route>
+            <Route exact path={["/posts", "/events", "/announcements"]}>
+              <Feed />
+            </Route>
+            <Redirect from="/" to="/posts" />
+          </>
+        ) : (
+          <>
+            <Route exact path="/initialize">
+              <Init />
+            </Route>
+            <Redirect from="/" to="/initialize" />
+          </>
+        )
+      ) : (
+        <>
+          <Route exact path="/auth">
+            <Auth />
+          </Route>
+          <Redirect from="/" to="/auth" />
+        </>
+      )}
     </Switch>
   );
 };

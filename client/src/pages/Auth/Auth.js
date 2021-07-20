@@ -12,47 +12,36 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 import { useState } from "react";
 import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
-import { getDomain } from "tldjs";
 import { login } from "../../actions/auth";
 import useStyles from "./styles";
 
 const Auth = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const allowedDomain = ["satitpatumwan.ac.th", "triamudom.ac.th"];
-  const [domainError, setDomainError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const googleSuccess = async (res) => {
     const profile = res?.profileObj;
     const token = res?.tokenId;
     try {
-      if (allowedDomain.includes(getDomain(profile.email.split("@").pop())))
-        dispatch(login({ profile, token }));
-      else setDomainError(true);
+      dispatch(login({ profile, token }));
     } catch (error) {
-      console.log(error);
+      setLoginError(true);
     }
   };
-  const googleFailure = () => {
-    console.log("Login Failed");
-  };
+  const googleFailure = () => setLoginError(true);
   return (
     <Grid container justify="center">
       <Grid item xs={10} md={7}>
         <Snackbar
-          open={domainError}
+          open={loginError}
           autoHideDuration={5000}
           onClose={(e, reason) => {
-            if (reason !== "clickaway") setDomainError(false);
+            if (reason !== "clickaway") setLoginError(false);
           }}
         >
-          <Alert
-            severity="error"
-            onClose={() => {
-              setDomainError(false);
-            }}
-          >
-            <AlertTitle>Domain Error</AlertTitle>
-            Please click at "Learn More" to understand what this error means.
+          <Alert severity="error" onClose={() => setLoginError(false)}>
+            <AlertTitle>Login Unsuccessful</AlertTitle>
+            Please try again.
           </Alert>
         </Snackbar>
         <Card className={classes.card}>

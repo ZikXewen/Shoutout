@@ -4,8 +4,7 @@ export default (store) => (next) => (action) => {
   const auth = JSON.parse(localStorage.getItem("user"));
   if (auth?.token && decode(auth?.token).exp < Date.now() / 1000) {
     alert("Session Timed Out\nPlease Login again");
-    const ret = next(logout());
-    return ret;
+    return next(logout());
   }
   return next(action);
 };

@@ -1,15 +1,11 @@
-import { LOGIN, LOGOUT, STICKER } from "../constants/actionTypes";
+import { AUTH } from "../constants/actionTypes";
 
 const initialState = JSON.parse(localStorage.getItem("user")) || null;
 
 export default (auth = initialState, action) => {
   switch (action.type) {
-    case LOGIN:
-      return action.payload;
-    case LOGOUT:
-      return null;
-    case STICKER:
-      return action.payload;
+    case AUTH:
+      return JSON.parse(localStorage.getItem("user")) || null;
     default:
       return auth;
   }

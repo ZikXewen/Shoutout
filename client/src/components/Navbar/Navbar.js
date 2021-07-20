@@ -35,7 +35,11 @@ const Navbar = () => {
           <IconButton onClick={drawerClick} className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
-          <Button component={Link} to="/" style={{ padding: 0 }}>
+          <Button
+            component={Link}
+            to={user.school ? "/posts" : "/initialize"}
+            style={{ padding: 0 }}
+          >
             <img src={logoSvg} style={{ height: "64px", width: "64px" }} />
           </Button>
           <Typography
@@ -59,7 +63,7 @@ const Navbar = () => {
             <IconButton onClick={drawerClick} className={classes.menuButton}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="h5">Komuniti</Typography>
+            <Typography variant="h5">Shoutout</Typography>
           </ListItem>
           {["Community", "Contact", "Profile", "Notification", "Support"].map(
             (text, index) => (
