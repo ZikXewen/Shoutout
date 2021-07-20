@@ -8,7 +8,6 @@ import Shop from "./pages/Shop/Shop";
 import Init from "./pages/Init/Init";
 const App = () => {
   const user = useSelector((state) => state.auth);
-  console.log(window.location.pathname);
   return (
     <Switch>
       {user

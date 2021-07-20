@@ -1,4 +1,5 @@
 import Post from "../models/Post.js";
+import Comment from "../models/Comment.js";
 
 export const countPosts = async (req, res) => {
   try {
@@ -8,7 +9,7 @@ export const countPosts = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
-export const getPosts = async (req, res) => {
+export const fetchPosts = async (req, res) => {
   const { page } = req.params;
   try {
     const posts = await Post.find(null, "-comments", {
@@ -33,6 +34,7 @@ export const createPost = async (req, res) => {
 export const deletePost = async (req, res) => {
   const { postId } = req.params;
   try {
+    await Comment.deleteMany({ postId });
     await Post.findByIdAndDelete(postId);
     res.status(200).json({ message: "Successfully Deleted" });
   } catch (error) {
@@ -75,5 +77,36 @@ export const dislikePost = async (req, res) => {
     res.status(200).json(oldPost);
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+};
+export const countComments = async (req, res) => {
+  const { postId } = req.params;
+  try {
+    const count = await Comment.countDocuments({ postId });
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+export const fetchComments = async (req, res) => {
+  const { postId, page } = req.params;
+  try {
+    const comments = await Comment.find({ postId }, null, {
+      skip: page * 10,
+      limit: 10,
+      sort: "-createdAt",
+    });
+    res.status(200).json(comments);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+export const createComment = async (req, res) => {
+  const newComment = new Comment({ ...req.body, createdAt: Date.now() });
+  try {
+    newComment.save();
+    res.status(200).json(newComment);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
   }
 };

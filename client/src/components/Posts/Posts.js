@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { getPosts } from "../../actions/posts";
+import { fetchPosts, countPosts } from "../../actions/posts";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, CircularProgress } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 
-import { countPosts } from "../../api";
 import Form from "./Form/Form";
 import Post from "./Post/Post";
 import useStyles from "./styles";
@@ -17,12 +16,8 @@ const Posts = () => {
   const [postsCount, setPostsCount] = useState(0);
 
   useEffect(() => {
-    countPosts()
-      .then(({ data }) => {
-        setPostsCount(data.count);
-        dispatch(getPosts(curPage));
-      })
-      .catch((err) => console.log(err));
+    dispatch(countPosts()).then(setPostsCount);
+    dispatch(fetchPosts(curPage));
   }, [curPage]);
   return (
     <Container disableGutters>

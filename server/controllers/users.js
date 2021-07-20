@@ -1,6 +1,7 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
 import Event from "../models/Event.js";
+import Comment from "../models/Comment.js";
 
 export const getUser = async (req, res) => {
   const { googleId, name, imageUrl } = req.body;
@@ -20,6 +21,10 @@ export const getUser = async (req, res) => {
           { $set: { creatorName: name, creatorImageUrl: imageUrl } }
         );
         await Event.updateMany(
+          { creatorId: _id },
+          { $set: { creatorName: name, creatorImageUrl: imageUrl } }
+        );
+        await Comment.updateMany(
           { creatorId: _id },
           { $set: { creatorName: name, creatorImageUrl: imageUrl } }
         );

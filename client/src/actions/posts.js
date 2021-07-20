@@ -1,9 +1,9 @@
-import { FETCH, PATCH } from "../constants/actionTypes";
+import { FETCH, PATCH, COMMENT } from "../constants/actionTypes";
 import * as api from "../api";
 
-export const getPosts = (page) => async (dispatch) => {
+export const fetchPosts = (page) => async (dispatch) => {
   try {
-    const { data } = await api.getPosts(page);
+    const { data } = await api.fetchPosts(page);
     dispatch({ type: FETCH, payload: data });
   } catch (err) {
     console.log(err);
@@ -37,6 +37,38 @@ export const dislikePost = (postId, userId) => async (dispatch) => {
   try {
     const { data } = await api.dislikePost(postId, userId);
     dispatch({ type: PATCH, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const countPosts = () => async (dispatch) => {
+  try {
+    const { data } = await api.countPosts();
+    return data.count;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const countComments = (postId) => async (dispatch) => {
+  try {
+    const { data } = await api.countComments(postId);
+    return data.count;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const fetchComments = (postId, page) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchComments(postId, page);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const createComment = (newComment) => async (dispatch) => {
+  try {
+    const { data } = await api.createComment(newComment);
+    console.log(data);
   } catch (error) {
     console.log(error);
   }

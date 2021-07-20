@@ -10,11 +10,11 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
-  Grid,
   List,
   ListItem,
   useMediaQuery,
   useTheme,
+  Collapse,
 } from "@material-ui/core";
 
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 import { deletePost, likePost, dislikePost } from "../../../actions/posts";
+import Comment from "./Comment/Comment";
 import useStyles from "./styles";
 
 const Post = ({ post }) => {
@@ -36,9 +37,11 @@ const Post = ({ post }) => {
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [enableComment, setEnableComment] = useState(false);
   const theme = useTheme();
   const smScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const mdScreen = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
     <Card className={classes.card}>
       <CardActions disableSpacing className={classes.col}>
@@ -102,7 +105,7 @@ const Post = ({ post }) => {
           </Box>
         </CardContent>
         <CardActions>
-          <Button>
+          <Button onClick={() => setEnableComment(!enableComment)}>
             <CommentIcon style={{ marginRight: "5px" }} />
             {smScreen && "Comments"}
           </Button>
@@ -119,6 +122,9 @@ const Post = ({ post }) => {
             {smScreen && "Report"}
           </Button>
         </CardActions>
+        <Collapse in={enableComment}>
+          <Comment postId={post._id} open={enableComment} />
+        </Collapse>
       </Box>
       {user && user.name === post.creatorName && (
         <Box padding="8px">
