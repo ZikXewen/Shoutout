@@ -17,6 +17,8 @@ import {
   Collapse,
   Grid,
   Avatar,
+  FormControlLabel,
+  Checkbox,
 } from "@material-ui/core";
 import Image from "material-ui-image";
 
@@ -31,6 +33,7 @@ export default () => {
   const [openTags, setOpenTags] = useState(false);
   const [focusShare, setFocusShare] = useState(false);
   const [confirmPop, setConfirmPop] = useState(false);
+  const [anonymous, setAnonymous] = useState(false);
   const [formData, setFormData] = useState({
     content: "",
     tags: "",
@@ -46,17 +49,20 @@ export default () => {
     });
   };
   const handleSubmit = () => {
-    let tags = [...new Set(formData.tags.trim().split(" "))].filter(
+    formData.tags = [...new Set(formData.tags.trim().split(" "))].filter(
       (tag) => tag !== ""
     );
     dispatch(
-      createPost({
-        ...formData,
-        tags,
-        creatorName: user.name,
-        creatorId: user._id,
-        creatorImageUrl: user.imageUrl,
-      })
+      createPost(
+        anonymous
+          ? formData
+          : {
+              ...formData,
+              creatorName: user.name,
+              creatorId: user._id,
+              creatorImageUrl: user.imageUrl,
+            }
+      )
     );
     handleClear();
   };
@@ -85,6 +91,15 @@ export default () => {
                 setFormData({ ...formData, content: e.target.value });
               }}
               inputProps={{ maxLength: 50 }}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={anonymous}
+                  onChange={(e) => setAnonymous(e.target.checked)}
+                />
+              }
+              label="Post Anonymously (Undeletable)"
             />
             <Collapse in={openTags}>
               <TextField
