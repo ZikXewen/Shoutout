@@ -90,7 +90,7 @@ export default () => {
               onChange={(e) => {
                 setFormData({ ...formData, content: e.target.value });
               }}
-              inputProps={{ maxLength: 50 }}
+              inputProps={{ maxLength: 100 }}
             />
             <FormControlLabel
               control={

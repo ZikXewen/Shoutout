@@ -66,6 +66,7 @@ export default ({ postId, open }) => {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+          inputProps={{ maxLength: 50 }}
         />
         <IconButton onClick={handleSubmit} disabled={!newComment}>
           <SendIcon fontSize="small" />
