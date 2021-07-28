@@ -12,7 +12,9 @@ import {
   Box,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import MoodIcon from "@material-ui/icons/Mood";
+import GroupIcon from "@material-ui/icons/Group";
+import PersonIcon from "@material-ui/icons/Person";
+import InfoIcon from "@material-ui/icons/Info";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -65,16 +67,24 @@ const Navbar = () => {
             </IconButton>
             <Typography variant="h5">Shoutout</Typography>
           </ListItem>
-          {["Community", "Contact", "Profile", "Notification", "Support"].map(
-            (text, index) => (
-              <ListItem button key={`menu${index}`}>
-                <ListItemIcon>
-                  <MoodIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+          <ListItem button>
+            <ListItemIcon style={{ paddingLeft: "12px" }}>
+              <GroupIcon />
+            </ListItemIcon>
+            <ListItemText primary="Community" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon style={{ paddingLeft: "12px" }}>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon style={{ paddingLeft: "12px" }}>
+              <InfoIcon />
+            </ListItemIcon>
+            <ListItemText primary="About" />
+          </ListItem>
         </List>
       </Drawer>
     </>

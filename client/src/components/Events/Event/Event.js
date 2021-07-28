@@ -16,10 +16,10 @@ export default ({ event }) => {
   return (
     <Card className={classes.card}>
       <Grid container>
-        <Grid item xs={12} lg={8}>
+        <Grid item xs={12} lg={7}>
           <Image src={event.banner} aspectRatio={10 / 4} />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} lg={5}>
           <CardContent>
             <Box display="flex" flexDirection="row" alignItems="center">
               <Avatar src={event.creatorImageUrl} className={classes.avatar} />
