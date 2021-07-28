@@ -74,9 +74,7 @@ export default () => {
           <Container className={classes.shareForm}>
             <TextField
               variant="outlined"
-              label={
-                focusShare ? "Content" : `Share your own idea, ${user.name}`
-              }
+              label={focusShare ? "Content" : "Share your own idea"}
               fullWidth
               className={classes.shareField}
               size="small"

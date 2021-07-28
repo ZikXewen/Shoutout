@@ -5,4 +5,8 @@ export default makeStyles(() => ({
     width: "25px",
     marginRight: "5px",
   },
+  multiline: {
+    display: "inline-block",
+    wordBreak: "break-word",
+  },
 }));

@@ -79,8 +79,8 @@ const Post = ({ post }) => {
         display="flex"
         flexDirection="column"
         margin="10px 0"
-        flex="1 0"
-        width="70%"
+        flex="1"
+        minWidth="0"
       >
         <CardContent>
           <Box display="flex" flexDirection="row" alignItems="center">
@@ -89,14 +89,14 @@ const Post = ({ post }) => {
               {`${post.creatorName} : ${moment(post.createdAt).fromNow()}`}
             </Typography>
           </Box>
-          <Typography variant="h6" classname={classes.multiline}>
+          <Typography variant="h6" className={classes.content}>
             {post.content}
           </Typography>
           <List className={classes.tags}>
             {post.tags.map((tag) => (
               <ListItem
-                marginX="10px"
                 className={classes.tag}
+                disableGutters
               >{`#${tag}`}</ListItem>
             ))}
           </List>
@@ -104,30 +104,48 @@ const Post = ({ post }) => {
             {post.sticker && <Image src={post.sticker} />}
           </Box>
         </CardContent>
-        <CardActions>
-          <Button onClick={() => setEnableComment(!enableComment)}>
-            <CommentIcon style={{ marginRight: "5px" }} />
-            {smScreen && "Comments"}
-          </Button>
-          <Button style={{ marginRight: "max(auto, 5px)" }}>
-            <ShareIcon style={{ marginRight: "5px" }} />
-            {smScreen && "Share"}
-          </Button>
-          <Button>
-            <SaveIcon style={{ marginRight: "5px" }} />
-            {smScreen && "Save"}
-          </Button>
-          <Button>
-            <ReportIcon style={{ marginRight: "5px" }} />
-            {smScreen && "Report"}
-          </Button>
-        </CardActions>
+
+        {smScreen ? (
+          <CardActions>
+            <Button onClick={() => setEnableComment(!enableComment)}>
+              <CommentIcon style={{ marginRight: "5px" }} />
+              Comments
+            </Button>
+            <Button style={{ marginRight: "max(auto, 5px)" }}>
+              <ShareIcon style={{ marginRight: "5px" }} />
+              Share
+            </Button>
+            <Button>
+              <SaveIcon style={{ marginRight: "5px" }} />
+              Save
+            </Button>
+            <Button>
+              <ReportIcon style={{ marginRight: "5px" }} />
+              Report
+            </Button>
+          </CardActions>
+        ) : (
+          <CardActions style={{ justifyContent: "space-evenly" }}>
+            <IconButton onClick={() => setEnableComment(!enableComment)}>
+              <CommentIcon />
+            </IconButton>
+            <IconButton>
+              <ShareIcon />
+            </IconButton>
+            <IconButton>
+              <SaveIcon />
+            </IconButton>
+            <IconButton>
+              <ReportIcon />
+            </IconButton>
+          </CardActions>
+        )}
         <Collapse in={enableComment}>
           <Comment postId={post._id} open={enableComment} />
         </Collapse>
       </Box>
       {user && user.name === post.creatorName && (
-        <Box padding="8px">
+        <Box padding="8px" position="absolute" top="0" right="0">
           <IconButton
             onClick={() => {
               setDialogOpen(true);

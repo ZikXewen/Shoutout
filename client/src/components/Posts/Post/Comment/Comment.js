@@ -6,6 +6,8 @@ import {
   TextField,
   IconButton,
   Avatar,
+  Container,
+  Typography,
 } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import { useState, useEffect } from "react";
@@ -56,7 +58,7 @@ export default ({ postId, open }) => {
     if (open) handleFetch();
   }, [curPage, open]);
   return (
-    <>
+    <Container disableGutters>
       <Box display="flex" flexDirection="row" alignItems="center">
         <TextField
           fullWidth
@@ -86,7 +88,9 @@ export default ({ postId, open }) => {
                 // THIS NEEDS STYLING
                 <ListItem>
                   <Avatar src={creatorImageUrl} className={classes.avatar} />
-                  {creatorName}: {content} -- {moment(createdAt).fromNow()}
+                  <Typography className={classes.multiline}>
+                    {creatorName}: {content} -- {moment(createdAt).fromNow()}
+                  </Typography>
                 </ListItem>
               )
             )}
@@ -95,6 +99,6 @@ export default ({ postId, open }) => {
       ) : (
         <CircularProgress />
       )}
-    </>
+    </Container>
   );
 };

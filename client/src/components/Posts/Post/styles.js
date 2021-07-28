@@ -4,15 +4,16 @@ export default makeStyles({
     display: "flex",
     flexDirection: "row",
     marginTop: "20px",
+    position: "relative",
   },
   tags: {
     display: "flex",
     flexDirection: "row",
-    maxWidth: "100%",
     overflow: "auto",
   },
   tag: {
     width: "fit-content",
+    paddingRight: "15px",
   },
   col: {
     display: "flex",
@@ -29,7 +30,9 @@ export default makeStyles({
     height: "25px",
     marginRight: "10px",
   },
-  multiline: {
-    whiteSpace: "pre-line",
+  content: {
+    display: "inline-block",
+    wordBreak: "break-word",
+    paddingTop: "8px",
   },
 });
