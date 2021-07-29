@@ -24,9 +24,12 @@ export default ({ event }) => {
             <Box display="flex" flexDirection="row" alignItems="center">
               <Avatar src={event.creatorImageUrl} className={classes.avatar} />
               <Typography>{event.creatorName}</Typography>
+              {event.school && <Typography>@{event.school}</Typography>}
             </Box>
             <Typography variant="h6">{event.title}</Typography>
-            <Typography>{event.description}</Typography>
+            <Typography className={classes.multiline}>
+              {event.description}
+            </Typography>
             <Typography>
               {moment(event.beginTime).format("MMMM Do YYYY, h:mm a")}
             </Typography>

@@ -8,5 +8,6 @@ export default makeStyles(() => ({
   multiline: {
     display: "inline-block",
     wordBreak: "break-word",
+    whiteSpace: "pre-wrap",
   },
 }));

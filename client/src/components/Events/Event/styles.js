@@ -11,4 +11,7 @@ export default makeStyles(() => ({
     height: "25px",
     marginRight: "10px",
   },
+  multiline: {
+    whiteSpace: "pre",
+  },
 }));

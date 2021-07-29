@@ -68,7 +68,6 @@ export const fetchComments = (postId, page) => async (dispatch) => {
 export const createComment = (newComment) => async (dispatch) => {
   try {
     const { data } = await api.createComment(newComment);
-    console.log(data);
   } catch (error) {
     console.log(error);
   }

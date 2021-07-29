@@ -56,7 +56,11 @@ export default () => {
                 fullWidth
                 className={classes.title}
                 renderInput={(params) => (
-                  <TextField {...params} label="School" variant="outlined" />
+                  <TextField
+                    {...params}
+                    label="School (If your school is not listed, just type and press Enter.)"
+                    variant="outlined"
+                  />
                 )}
                 freeSolo
               />

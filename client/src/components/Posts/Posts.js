@@ -16,8 +16,9 @@ const Posts = () => {
   const [postsCount, setPostsCount] = useState(0);
 
   useEffect(() => {
-    dispatch(countPosts()).then(setPostsCount);
-    dispatch(fetchPosts(curPage));
+    dispatch(countPosts())
+      .then(setPostsCount)
+      .then(() => dispatch(fetchPosts(curPage)));
   }, [curPage]);
   return (
     <Container disableGutters>
@@ -26,9 +27,7 @@ const Posts = () => {
         <Container className={classes.posts} disableGutters>
           <Pagination
             count={Math.ceil(postsCount / 10)}
-            onChange={(e, v) => {
-              setCurPage(v - 1);
-            }}
+            onChange={(e, v) => setCurPage(v - 1)}
           />
           {posts.map((post, index) => (
             <Post post={post} key={`post${index}`} />

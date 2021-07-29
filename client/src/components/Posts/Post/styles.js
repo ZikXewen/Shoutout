@@ -33,6 +33,10 @@ export default makeStyles({
   content: {
     display: "inline-block",
     wordBreak: "break-word",
-    paddingTop: "8px",
+    marginTop: "8px",
+    whiteSpace: "pre-wrap",
+    maxHeight: "100px",
+    overflowY: "auto",
+    width: "100%",
   },
 });

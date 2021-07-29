@@ -4,7 +4,7 @@ import {
   DialogTitle,
   DialogContent,
   TextField,
-  Grid,
+  Box,
   Checkbox,
   FormControlLabel,
 } from "@material-ui/core";
@@ -30,9 +30,9 @@ export default () => {
     link: "",
     banner: null,
   });
-  const [enableEndTime, setEnableEndTime] = useState(false);
   const [crop, setCrop] = useState({ unit: "%", aspect: 10 / 4, width: 100 });
   const [image, setImage] = useState();
+  const [schoolBased, setSchoolBased] = useState(false);
   const user = useSelector((state) => state.auth);
 
   const getCroppedImage = () => {
@@ -66,7 +66,19 @@ export default () => {
       {/* Change onClose for cancel confirmation later */}
       <Dialog open={openCreate} onClose={() => setOpenCreate(false)} fullWidth>
         <DialogTitle>Create an event</DialogTitle>
+
         <DialogContent className={classes.createContent}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={schoolBased}
+                onChange={(e) => {
+                  setSchoolBased(e.target.checked);
+                }}
+              />
+            }
+            label="School-based Event"
+          />
           <TextField
             label="Title"
             variant="outlined"
@@ -93,53 +105,34 @@ export default () => {
             }
           />
           <MuiPickersUtilsProvider utils={MomentUtils}>
-            <Grid container justifyContent="flex-end" spacing={2}>
-              <Grid item xs>
-                <DateTimePicker
-                  disablePast
-                  strictCompareDates
-                  value={formData.beginTime}
-                  onChange={(beginTime) =>
-                    setFormData({ ...formData, beginTime })
-                  }
-                  minDateMessage="Cannot plan event in the past."
-                  label="Begin"
-                  inputVariant="outlined"
-                  size="small"
-                  fullWidth
-                />
-              </Grid>
-              {enableEndTime && (
-                <Grid item xs>
-                  <DateTimePicker
-                    disablePast
-                    strictCompareDates
-                    value={formData.endTime}
-                    onChange={(endTime) =>
-                      setFormData({ ...formData, endTime })
-                    }
-                    minDate={formData.beginTime}
-                    minDateMessage="Cannot end event before begin."
-                    label="End"
-                    inputVariant="outlined"
-                    size="small"
-                    fullWidth
-                  />
-                </Grid>
-              )}
-            </Grid>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={enableEndTime}
-                  onChange={(e) => {
-                    setFormData({ ...formData, endTime: null });
-                    setEnableEndTime(e.target.checked);
-                  }}
-                />
-              }
-              label="Enable Ending Date/Time"
-            />
+            <Box display="flex" flexDirection="row" className={classes.content}>
+              <DateTimePicker
+                disablePast
+                strictCompareDates
+                value={formData.beginTime}
+                onChange={(beginTime) =>
+                  setFormData({ ...formData, beginTime })
+                }
+                minDateMessage="Cannot plan event in the past."
+                label="Begin"
+                inputVariant="outlined"
+                size="small"
+                fullWidth
+                style={{ marginRight: "10px" }}
+              />
+              <DateTimePicker
+                disablePast
+                strictCompareDates
+                value={formData.endTime}
+                onChange={(endTime) => setFormData({ ...formData, endTime })}
+                minDate={formData.beginTime}
+                minDateMessage="Cannot end event before begin."
+                label="End (Optional)"
+                inputVariant="outlined"
+                size="small"
+                fullWidth
+              />
+            </Box>
           </MuiPickersUtilsProvider>
           <TextField
             label="Event Link (Optional)"
@@ -183,10 +176,11 @@ export default () => {
               dispatch(
                 createEvent({
                   ...formData,
-                  banner: getCroppedImage(),
+                  banner: formData.banner ? getCroppedImage() : null,
                   creatorName: user.name,
                   creatorId: user._id,
                   creatorImageUrl: user.imageUrl,
+                  school: schoolBased ? user.school : null,
                 })
               );
               setFormData({
@@ -200,6 +194,9 @@ export default () => {
               setCrop({ unit: "%", aspect: 10 / 4, width: 100 });
               setOpenCreate(false);
             }}
+            disabled={
+              !formData.title || !formData.description || !formData.beginTime
+            }
           >
             Create!
           </Button>

@@ -61,6 +61,7 @@ export default () => {
               creatorName: user.name,
               creatorId: user._id,
               creatorImageUrl: user.imageUrl,
+              creatorSchool: user.school,
             }
       )
     );
@@ -89,6 +90,7 @@ export default () => {
                 setFormData({ ...formData, content: e.target.value });
               }}
               inputProps={{ maxLength: 100 }}
+              multiline
             />
             <FormControlLabel
               control={

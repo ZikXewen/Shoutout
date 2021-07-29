@@ -29,7 +29,6 @@ export default ({ postId, open }) => {
   const [count, setCount] = useState(0);
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
-  const [justSubmitted, setJustSubmitted] = useState(false);
   const classes = useStyles();
   const handleSubmit = () => {
     dispatch(
@@ -40,20 +39,16 @@ export default ({ postId, open }) => {
         creatorId: user._id,
         creatorImageUrl: user.imageUrl,
       })
-    ).then(() => {
-      setJustSubmitted(true);
-    });
+    ).then(handleFetch);
     setCurPage(0);
     setNewComment("");
   };
   const handleFetch = () => {
-    dispatch(countComments(postId)).then(setCount);
-    dispatch(fetchComments(postId, curPage)).then(setComments);
+    dispatch(countComments(postId))
+      .then(setCount)
+      .then(() => dispatch(fetchComments(postId, curPage)))
+      .then(setComments);
   };
-  useEffect(() => {
-    if (!justSubmitted) handleFetch();
-    setJustSubmitted(false);
-  }, [justSubmitted]);
   useEffect(() => {
     if (open) handleFetch();
   }, [curPage, open]);
@@ -75,7 +70,7 @@ export default ({ postId, open }) => {
         </IconButton>
       </Box>
       {comments[0] ? (
-        <>
+        <Box marginTop="10px">
           <Pagination
             count={Math.ceil(count / 10)}
             onChange={(e, v) => {
@@ -95,7 +90,7 @@ export default ({ postId, open }) => {
               )
             )}
           </List>
-        </>
+        </Box>
       ) : (
         <CircularProgress />
       )}
