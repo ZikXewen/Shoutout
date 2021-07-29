@@ -19,7 +19,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import logoSvg from "../../img/logo.svg";
+import logoPng from "../../img/logo.png";
 import { logout } from "../../actions/auth";
 import useStyles from "./styles";
 const Navbar = () => {
@@ -42,11 +42,8 @@ const Navbar = () => {
             to={user.school ? "/posts" : "/initialize"}
             style={{ padding: 0 }}
           >
-            <img src={logoSvg} style={{ height: "64px", width: "64px" }} />
+            <img src={logoPng} style={{ height: "64px" }} />
           </Button>
-          <Typography
-            style={{ marginLeft: "auto" }}
-          >{`Logged in as... ${user.name}`}</Typography>
           <Button
             color="secondary"
             variant="contained"

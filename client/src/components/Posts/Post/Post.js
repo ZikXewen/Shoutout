@@ -111,10 +111,6 @@ const Post = ({ post }) => {
               <CommentIcon style={{ marginRight: "5px" }} />
               Comments
             </Button>
-            <Button style={{ marginRight: "max(auto, 5px)" }}>
-              <ShareIcon style={{ marginRight: "5px" }} />
-              Share
-            </Button>
             <Button>
               <SaveIcon style={{ marginRight: "5px" }} />
               Save
@@ -128,9 +124,6 @@ const Post = ({ post }) => {
           <CardActions style={{ justifyContent: "space-evenly" }}>
             <IconButton onClick={() => setEnableComment(!enableComment)}>
               <CommentIcon />
-            </IconButton>
-            <IconButton>
-              <ShareIcon />
             </IconButton>
             <IconButton>
               <SaveIcon />

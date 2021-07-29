@@ -17,7 +17,7 @@ const store = createStore(
 );
 const theme = createMuiTheme({
   typography: {
-    fontFamily: `"Montserrat"`, // Thai Font?
+    fontFamily: `"Montserrat", "Kanit"`, // Thai Font?
   },
 });
 

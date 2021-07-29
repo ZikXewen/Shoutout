@@ -28,9 +28,9 @@ const Feed = () => {
           <Container>
             {/* prettier-ignore */}
             <ToggleButtonGroup exclusive className={classes.typesBar} value={postType}>
-              <ToggleButton value="posts" component={Link} to="/posts" style={{width: "100%"}}>Posts</ToggleButton>
-              <ToggleButton value="events" component={Link} to="/events" style={{width: "100%"}}>Events</ToggleButton>
-              <ToggleButton value="announcements" component={Link} to="/announcements" style={{width: "100%"}}>Announcements</ToggleButton>
+              <ToggleButton value="posts" component={Link} to="/posts" style={{width: "100%"}}><b>Posts</b></ToggleButton>
+              <ToggleButton value="events" component={Link} to="/events" style={{width: "100%"}}><b>Events</b></ToggleButton>
+              <ToggleButton value="announcements" component={Link} to="/announcements" style={{width: "100%"}}><b>Announcements</b></ToggleButton>
             </ToggleButtonGroup>
             <Switch>
               <Route exact path="/posts">
