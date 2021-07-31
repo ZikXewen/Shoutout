@@ -132,7 +132,7 @@ const Post = ({ post }) => {
             </IconButton>
           </CardActions>
         )}
-        <Collapse in={enableComment}>
+        <Collapse in={enableComment} timeout={150}>
           <Comment postId={post._id} open={enableComment} />
         </Collapse>
       </Box>
