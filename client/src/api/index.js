@@ -2,7 +2,8 @@ import axios from "axios";
 const API = axios.create({ baseURL: "http://localhost:5000" });
 
 export const countPosts = () => API.get("/posts/count");
-export const fetchPosts = (page) => API.get(`/posts/${page}`);
+export const fetchPosts = (page, sortType) =>
+  API.get(`/posts/${sortType}/${page}`);
 export const createPost = (newPost) => API.post("/posts", newPost);
 export const deletePost = (postId) => API.delete(`/posts/${postId}`);
 export const likePost = (postId, userId) =>

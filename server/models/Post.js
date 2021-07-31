@@ -7,6 +7,7 @@ const postSchema = mongoose.Schema({
   comments: { type: [Object], default: [] },
   tags: { type: [String], default: [] },
   likes: { type: [String], default: [] },
+  totalReacts: { type: Number, default: 0 },
   dislikes: { type: [String], default: [] },
   createdAt: Date,
   sticker: String,

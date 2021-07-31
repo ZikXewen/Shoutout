@@ -1,9 +1,9 @@
 import { FETCH, PATCH, COMMENT } from "../constants/actionTypes";
 import * as api from "../api";
 
-export const fetchPosts = (page) => async (dispatch) => {
+export const fetchPosts = (page, sortType) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts(page);
+    const { data } = await api.fetchPosts(page, sortType);
     dispatch({ type: FETCH, payload: data });
   } catch (err) {
     console.log(err);

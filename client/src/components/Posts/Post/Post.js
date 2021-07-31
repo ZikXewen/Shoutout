@@ -19,14 +19,13 @@ import {
 
 import DeleteIcon from "@material-ui/icons/Delete";
 import ArrowIcon from "@material-ui/icons/Forward";
-import ShareIcon from "@material-ui/icons/Share";
 import SaveIcon from "@material-ui/icons/Bookmark";
 import CommentIcon from "@material-ui/icons/ChatBubble";
 import ReportIcon from "@material-ui/icons/Report";
 import Image from "material-ui-image";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { deletePost, likePost, dislikePost } from "../../../actions/posts";
 import Comment from "./Comment/Comment";
@@ -41,7 +40,7 @@ const Post = ({ post }) => {
   const theme = useTheme();
   const smScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const mdScreen = useMediaQuery(theme.breakpoints.up("md"));
-
+  useEffect(() => setEnableComment(false), [post]);
   return (
     <Card className={classes.card}>
       <CardActions disableSpacing className={classes.col}>

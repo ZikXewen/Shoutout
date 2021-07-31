@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 router.get("/count", countPosts);
-router.get("/:page", fetchPosts);
+router.get("/:sortType/:page", fetchPosts);
 router.post("/", createPost);
 router.delete("/:postId", deletePost);
 router.patch("/like/:postId/:userId", likePost);

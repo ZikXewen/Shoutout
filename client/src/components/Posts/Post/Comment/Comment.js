@@ -52,6 +52,7 @@ export default ({ postId, open }) => {
   useEffect(() => {
     if (open) handleFetch();
   }, [curPage, open]);
+  useEffect(() => setComments([]), [postId]);
   return (
     <Container disableGutters>
       <Box display="flex" flexDirection="row" alignItems="center">
@@ -76,6 +77,7 @@ export default ({ postId, open }) => {
             onChange={(e, v) => {
               setCurPage(v - 1);
             }}
+            size="small"
           />
           <List>
             {comments.map(
@@ -84,7 +86,10 @@ export default ({ postId, open }) => {
                 <ListItem>
                   <Avatar src={creatorImageUrl} className={classes.avatar} />
                   <Typography className={classes.multiline}>
-                    {creatorName}: {content} -- {moment(createdAt).fromNow()}
+                    {creatorName}: {content}{" "}
+                    <span style={{ color: "lightGray" }}>
+                      - {moment(createdAt).fromNow()}
+                    </span>
                   </Typography>
                 </ListItem>
               )
