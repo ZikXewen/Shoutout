@@ -25,4 +25,11 @@ export const setSchool = (userId, school) =>
 
 export const countEvents = () => API.get("/events/count");
 export const createEvent = (event) => API.post("/events", event);
-export const fetchEvents = (page) => API.get(`/events/${page}`);
+export const fetchEvents = (page, school) =>
+  API.get(`/events/${school}/${page}`);
+export const countEventComments = (eventId) =>
+  API.get(`/events/${eventId}/comments/count`);
+export const fetchEventComments = (eventId, page) =>
+  API.get(`/events/${eventId}/comments/${page}`);
+export const createEventComment = (newComment) =>
+  API.post(`/events/${newComment.eventId}/comments`, newComment);

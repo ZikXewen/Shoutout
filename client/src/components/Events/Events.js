@@ -12,13 +12,14 @@ import { Pagination } from "@material-ui/lab";
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
   const events = useSelector((state) => state.posts);
   const [eventsCount, setEventsCount] = useState();
   const [curPage, setCurPage] = useState(0);
   useEffect(() => {
     countEvents().then(({ data }) => {
       setEventsCount(data.count);
-      dispatch(fetchEvents(curPage));
+      dispatch(fetchEvents(curPage, user.school));
     });
   }, [curPage]);
   return (

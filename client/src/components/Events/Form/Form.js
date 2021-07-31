@@ -86,7 +86,7 @@ export default () => {
             size="small"
             className={classes.content}
             inputProps={{ maxLength: 50 }}
-            value={formData.name}
+            value={formData.title}
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
@@ -98,7 +98,7 @@ export default () => {
             multiline
             size="small"
             className={classes.content}
-            inputProps={{ maxLength: 200 }}
+            inputProps={{ maxLength: 100 }}
             value={formData.description}
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
@@ -113,7 +113,7 @@ export default () => {
                 onChange={(beginTime) =>
                   setFormData({ ...formData, beginTime })
                 }
-                minDateMessage="Cannot plan event in the past."
+                minDateMessage="Events should not be in the past."
                 label="Begin"
                 inputVariant="outlined"
                 size="small"
@@ -126,7 +126,7 @@ export default () => {
                 value={formData.endTime}
                 onChange={(endTime) => setFormData({ ...formData, endTime })}
                 minDate={formData.beginTime}
-                minDateMessage="Cannot end event before begin."
+                minDateMessage="Event should not end before begin."
                 label="End (Optional)"
                 inputVariant="outlined"
                 size="small"
@@ -150,23 +150,26 @@ export default () => {
               type="file"
               hidden
               accept="image/*"
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  banner: URL.createObjectURL(e.target.files[0]),
-                })
-              }
+              onChange={(e) => {
+                if (e.target.files[0])
+                  setFormData({
+                    ...formData,
+                    banner: URL.createObjectURL(e.target.files[0]),
+                  });
+              }}
             />
           </Button>
           {formData.banner && (
-            <ImageCrop
-              src={formData.banner}
-              crop={crop}
-              onChange={(newCrop) => setCrop(newCrop)}
-              onImageLoaded={setImage}
-              style={{ marginBottom: "10px" }}
-              imageStyle={{ minWidth: "100%" }}
-            />
+            <Box display="block">
+              <ImageCrop
+                src={formData.banner}
+                crop={crop}
+                onChange={(newCrop) => setCrop(newCrop)}
+                onImageLoaded={setImage}
+                style={{ marginBottom: "10px" }}
+                imageStyle={{ minWidth: "100%" }}
+              />
+            </Box>
           )}
           <Button
             variant="contained"
@@ -195,7 +198,11 @@ export default () => {
               setOpenCreate(false);
             }}
             disabled={
-              !formData.title || !formData.description || !formData.beginTime
+              !formData.title ||
+              !formData.description.replace(/\s/g, "") ||
+              !formData.beginTime ||
+              (formData.beginTime && formData.beginTime < Date.now()) ||
+              (formData.endTime && formData.endTime < formData.beginTime)
             }
           >
             Create!

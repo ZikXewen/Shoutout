@@ -7,6 +7,7 @@ export default makeStyles(() => ({
   },
   button: {
     margin: "5px 0",
+    textTransform: "none",
   },
   title: {
     marginBottom: "10px",

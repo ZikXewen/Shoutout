@@ -150,7 +150,7 @@ export default () => {
             Clear
           </Button>
           <Button
-            disabled={!formData.content}
+            disabled={!formData.content.replace(/\s/g, "")}
             onClick={() => setConfirmPop(true)}
             color="primary"
           >

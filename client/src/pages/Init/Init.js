@@ -70,7 +70,6 @@ export default () => {
                 fullWidth
                 className={classes.button}
                 disabled={!school}
-                style={{ textTransform: "none" }}
                 onClick={() => setOpenConfirm(true)}
               >
                 Confirm

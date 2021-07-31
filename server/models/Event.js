@@ -11,7 +11,7 @@ export default mongoose.model(
     beginTime: Date,
     endTime: Date,
     banner: String,
-    school: { type: String, default: "" },
-    comment: { type: [String], default: [] },
+    school: String,
+    link: String,
   })
 );

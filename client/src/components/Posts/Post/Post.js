@@ -84,11 +84,12 @@ const Post = ({ post }) => {
         <CardContent>
           <Box display="flex" flexDirection="row" alignItems="center">
             <Avatar src={post.creatorImageUrl} className={classes.avatar} />
-            <Typography>
-              {`${post.creatorName} : ${moment(post.createdAt).fromNow()}`}
+            <Typography variant="body2">
+              <b>{post.creatorName}</b>
+              {` : ${moment(post.createdAt).fromNow()}`}
             </Typography>
           </Box>
-          <Typography variant="h6" className={classes.content}>
+          <Typography variant="body1" className={classes.content}>
             {post.content}
           </Typography>
           <List className={classes.tags}>

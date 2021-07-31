@@ -24,7 +24,7 @@ const Feed = () => {
     <>
       <Navbar />
       <Grid container justify="center">
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={7} sm={10}>
           <Container>
             {/* prettier-ignore */}
             <ToggleButtonGroup exclusive className={classes.typesBar} value={postType}>
