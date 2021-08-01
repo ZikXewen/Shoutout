@@ -73,7 +73,12 @@ const Auth = () => {
               onFailure={googleFailure}
               cookiePolicy="single_host_origin"
             />
-            <Button variant="outlined" fullWidth className={classes.button}>
+            <Button
+              variant="outlined"
+              fullWidth
+              className={classes.button}
+              disabled
+            >
               Learn More
             </Button>
           </CardActions>

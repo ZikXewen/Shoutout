@@ -1,7 +1,6 @@
 import Event from "../models/Event.js";
 import Comment from "../models/Comment.js";
 export const createEvent = async (req, res) => {
-  console.log(req.body);
   const newEvent = new Event({ ...req.body, createdAt: Date.now() });
   try {
     await newEvent.save();

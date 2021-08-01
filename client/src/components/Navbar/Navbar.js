@@ -16,14 +16,14 @@ import GroupIcon from "@material-ui/icons/Group";
 import PersonIcon from "@material-ui/icons/Person";
 import InfoIcon from "@material-ui/icons/Info";
 import SaveIcon from "@material-ui/icons/Bookmark";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import logoPng from "../../img/logo.png";
 import { logout } from "../../actions/auth";
 import useStyles from "./styles";
-const Navbar = () => {
+const Navbar = ({ setFilter }) => {
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.auth);
   const classes = useStyles();
@@ -31,6 +31,9 @@ const Navbar = () => {
   const drawerClick = () => {
     setOpen(!open);
   };
+  useEffect(() => {
+    if (setFilter === undefined) setFilter = () => {};
+  }, []);
   return (
     <>
       <AppBar className={classes.appbar}>
@@ -41,6 +44,7 @@ const Navbar = () => {
           <Button
             component={Link}
             to={user.school ? "/posts" : "/initialize"}
+            onClick={() => setFilter({})}
             style={{ padding: 0 }}
           >
             <img src={logoPng} style={{ height: "64px" }} />
@@ -66,13 +70,29 @@ const Navbar = () => {
             <Typography variant="h5">Shoutout</Typography>
           </ListItem>
 
-          <ListItem button>
+          <ListItem
+            button
+            component={Link}
+            to={user.school ? "/posts" : "/initialize"}
+            onClick={() => {
+              setFilter({});
+              drawerClick();
+            }}
+          >
             <ListItemIcon style={{ paddingLeft: "12px" }}>
               <GroupIcon />
             </ListItemIcon>
             <ListItemText primary="Community" />
           </ListItem>
-          <ListItem button>
+          <ListItem
+            button
+            component={Link}
+            to={user.school ? "/posts" : "/initialize"}
+            onClick={() => {
+              setFilter({ savedBy: user._id });
+              drawerClick();
+            }}
+          >
             <ListItemIcon style={{ paddingLeft: "12px" }}>
               <SaveIcon />
             </ListItemIcon>

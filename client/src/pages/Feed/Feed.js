@@ -15,6 +15,7 @@ const Feed = () => {
   const [postType, setPostType] = useState(
     window.location.pathname.replace("/", "")
   );
+  const [filter, setFilter] = useState({});
   useEffect(() => {
     history.listen((location) => {
       setPostType(window.location.pathname.replace("/", ""));
@@ -22,7 +23,7 @@ const Feed = () => {
   }, []);
   return (
     <>
-      <Navbar />
+      <Navbar setFilter={setFilter} />
       <Grid container justify="center">
         <Grid item xs={12} md={7} sm={10}>
           <Container>
@@ -30,11 +31,11 @@ const Feed = () => {
             <ToggleButtonGroup exclusive className={classes.typesBar} value={postType}>
               <ToggleButton value="posts" component={Link} to="/posts" style={{width: "100%"}}><b>Posts</b></ToggleButton>
               <ToggleButton value="events" component={Link} to="/events" style={{width: "100%"}}><b>Events</b></ToggleButton>
-              <ToggleButton value="announcements" component={Link} to="/announcements" style={{width: "100%"}}><b>Announcements</b></ToggleButton>
+              <ToggleButton value="announcements" component={Link} to="/announcements" style={{width: "100%"}} disabled><b>Announcements</b></ToggleButton>
             </ToggleButtonGroup>
             <Switch>
               <Route exact path="/posts">
-                <Posts />
+                <Posts filter={filter} setFilter={setFilter} />
               </Route>
               <Route exact path="/events">
                 <Events />

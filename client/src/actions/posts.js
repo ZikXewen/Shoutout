@@ -1,9 +1,9 @@
-import { FETCH, PATCH, COMMENT } from "../constants/actionTypes";
+import { FETCH, PATCH } from "../constants/actionTypes";
 import * as api from "../api";
 
-export const fetchPosts = (page, sortType) => async (dispatch) => {
+export const fetchPosts = (page, sortType, filter) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts(page, sortType);
+    const { data } = await api.fetchPosts(page, sortType, filter);
     dispatch({ type: FETCH, payload: data });
   } catch (err) {
     console.log(err);
@@ -68,6 +68,14 @@ export const fetchComments = (postId, page) => async (dispatch) => {
 export const createComment = (newComment) => async (dispatch) => {
   try {
     const { data } = await api.createComment(newComment);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const savePost = (postId, userId) => async (dispatch) => {
+  try {
+    const { data } = await api.savePost(postId, userId);
+    dispatch({ type: PATCH, payload: data });
   } catch (error) {
     console.log(error);
   }

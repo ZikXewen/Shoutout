@@ -27,11 +27,16 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { deletePost, likePost, dislikePost } from "../../../actions/posts";
+import {
+  deletePost,
+  likePost,
+  dislikePost,
+  savePost,
+} from "../../../actions/posts";
 import Comment from "./Comment/Comment";
 import useStyles from "./styles";
 
-const Post = ({ post }) => {
+const Post = ({ post, setFilter }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
@@ -94,8 +99,15 @@ const Post = ({ post }) => {
           </Typography>
           <List className={classes.tags}>
             {post.tags.map((tag) => (
-              <ListItem className={classes.tag} disableGutters button>
-                <i onClick={() => {}}>{`#${tag}`}</i>
+              <ListItem
+                className={classes.tag}
+                disableGutters
+                button
+                onClick={() =>
+                  setFilter({ tags: { $regex: `^${tag}$`, $options: "i" } })
+                }
+              >
+                <i>{`#${tag}`}</i>
               </ListItem>
             ))}
           </List>
@@ -107,14 +119,25 @@ const Post = ({ post }) => {
         {smScreen ? (
           <CardActions>
             <Button onClick={() => setEnableComment(!enableComment)}>
-              <CommentIcon style={{ marginRight: "5px" }} />
+              <CommentIcon
+                style={{
+                  marginRight: "5px",
+                  color: enableComment ? "green" : "grey",
+                }}
+              />
               Comments
             </Button>
-            <Button>
-              <SaveIcon style={{ marginRight: "5px" }} />
-              Save
+            <Button onClick={() => dispatch(savePost(post._id, user._id))}>
+              <SaveIcon
+                style={{
+                  marginRight: "5px",
+                  color:
+                    post.savedBy.indexOf(user._id) === -1 ? "grey" : "green",
+                }}
+              />
+              {post.savedBy.indexOf(user._id) === -1 ? "Save" : "Saved"}
             </Button>
-            <Button>
+            <Button disabled>
               <ReportIcon style={{ marginRight: "5px" }} />
               Report
             </Button>
@@ -122,12 +145,19 @@ const Post = ({ post }) => {
         ) : (
           <CardActions style={{ justifyContent: "space-evenly" }}>
             <IconButton onClick={() => setEnableComment(!enableComment)}>
-              <CommentIcon />
+              <CommentIcon
+                style={{ color: enableComment ? "green" : "grey" }}
+              />
             </IconButton>
-            <IconButton>
-              <SaveIcon />
+            <IconButton onClick={() => dispatch(savePost(post._id, user._id))}>
+              <SaveIcon
+                style={{
+                  color:
+                    post.savedBy.indexOf(user._id) === -1 ? "grey" : "green",
+                }}
+              />
             </IconButton>
-            <IconButton>
+            <IconButton disabled>
               <ReportIcon />
             </IconButton>
           </CardActions>

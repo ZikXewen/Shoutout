@@ -7,14 +7,19 @@ export default makeStyles(() => ({
   posts: {
     display: "flex",
     flexDirection: "column",
-    marginBottom: "20px",
+    marginBottom: "10px",
   },
   paging: {
     alignItems: "center",
+    marginTop: "15px",
   },
   pageItem: {
     display: "flex",
     justifyContent: "center",
-    marginTop: "20px",
+  },
+  page: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
   },
 }));

@@ -2,8 +2,8 @@ import axios from "axios";
 const API = axios.create({ baseURL: "http://localhost:5000" });
 
 export const countPosts = () => API.get("/posts/count");
-export const fetchPosts = (page, sortType) =>
-  API.get(`/posts/${sortType}/${page}`);
+export const fetchPosts = (page, sortType, filter) =>
+  API.post(`/posts/fetch/${sortType}/${page}`, filter);
 export const createPost = (newPost) => API.post("/posts", newPost);
 export const deletePost = (postId) => API.delete(`/posts/${postId}`);
 export const likePost = (postId, userId) =>
@@ -16,6 +16,8 @@ export const fetchComments = (postId, page) =>
   API.get(`/posts/${postId}/comments/${page}`);
 export const createComment = (newComment) =>
   API.post(`/posts/${newComment.postId}/comments`, newComment);
+export const savePost = (postId, userId) =>
+  API.post(`/posts/save/${postId}/${userId}`);
 
 export const updateUser = (user) => API.post("/users", user);
 export const getSticker = (userId, stickerName) =>

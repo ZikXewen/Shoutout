@@ -8,6 +8,7 @@ const postSchema = mongoose.Schema({
   likes: { type: [String], default: [] },
   totalReacts: { type: Number, default: 0 },
   dislikes: { type: [String], default: [] },
+  savedBy: { type: [String], default: [] },
   createdAt: Date,
   sticker: String,
 });

@@ -11,11 +11,12 @@ export const countPosts = async (req, res) => {
 };
 export const fetchPosts = async (req, res) => {
   const { sortType, page } = req.params;
+  const filter = req.body;
   const sortMap = { Newest: "-createdAt", Popular: "-totalReacts" };
   try {
     if (sortType === "Trending") {
       const posts = await Post.aggregate([
-        { $unset: "comments" },
+        { $match: filter },
         {
           $addFields: {
             trendScore: {
@@ -32,7 +33,7 @@ export const fetchPosts = async (req, res) => {
       ]);
       res.status(200).json(posts);
     } else {
-      const posts = await Post.find(null, "-comments", {
+      const posts = await Post.find(filter, null, {
         sort: sortMap[sortType],
         skip: page * 10,
         limit: 10,
@@ -139,6 +140,21 @@ export const createComment = async (req, res) => {
   try {
     newComment.save();
     res.status(200).json(newComment);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+export const savePost = async (req, res) => {
+  const { postId, userId } = req.params;
+  try {
+    var oldPost = await Post.findById(postId);
+    if (oldPost.savedBy.indexOf(userId) !== -1)
+      oldPost.savedBy = oldPost.savedBy.filter(
+        (userSaved) => userSaved !== userId
+      );
+    else oldPost.savedBy = [...oldPost.savedBy, userId];
+    await Post.findByIdAndUpdate(postId, oldPost);
+    res.status(200).json(oldPost);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong!" });
   }
