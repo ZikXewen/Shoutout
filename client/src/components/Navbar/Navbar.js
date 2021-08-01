@@ -62,10 +62,10 @@ const Navbar = ({ setFilter }) => {
       <Drawer open={open} onClose={drawerClick} className={classes.drawer}>
         <List className={classes.list}>
           <ListItem key="menuHead">
-            <IconButton onClick={drawerClick} className={classes.menuButton}>
+            <IconButton onClick={drawerClick}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="h5">Shoutout</Typography>
+            <img src={logoPng} style={{ height: "64px" }} />
           </ListItem>
 
           <ListItem

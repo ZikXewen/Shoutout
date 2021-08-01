@@ -114,7 +114,9 @@ export default () => {
                     tags: e.target.value,
                   });
                 }}
-                value={formData.tags.replace("  ", " ")}
+                value={formData.tags
+                  .replace(/\s\s+/g, " ")
+                  .replace(/^\s|#/g, "")}
                 inputProps={{ maxLength: 50 }}
               />
             </Collapse>

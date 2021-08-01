@@ -19,6 +19,11 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: `"Montserrat", "Kanit"`, // Thai Font?
   },
+  palette: {
+    primary: {
+      main: "#FF8B3D",
+    },
+  },
 });
 
 ReactDOM.render(
