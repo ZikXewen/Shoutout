@@ -15,4 +15,14 @@ export default makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
   },
+  logo: {
+    width: "100%",
+    maxWidth: "600px",
+    minWidth: "300px",
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
 }));

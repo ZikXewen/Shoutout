@@ -12,8 +12,11 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 import { useState } from "react";
 import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
+import Image from "material-ui-image";
+
 import { login } from "../../actions/auth";
 import useStyles from "./styles";
+import logoPng from "../../img/logo.png";
 
 const Auth = () => {
   const classes = useStyles();
@@ -45,7 +48,8 @@ const Auth = () => {
           </Alert>
         </Snackbar>
         <Card className={classes.card}>
-          <CardContent>
+          <CardContent className={classes.content}>
+            <img src={logoPng} className={classes.logo} />
             <Typography align="center" variant="h3" className={classes.title}>
               Welcome to Shoutout
             </Typography>
@@ -77,7 +81,7 @@ const Auth = () => {
               variant="outlined"
               fullWidth
               className={classes.button}
-              disabled
+              href="https://docs.google.com/document/d/1cI5HFn2Gh8dJ-7zkMWgM6dLvAk6LuIRGadzkupsDHYo/edit"
             >
               Learn More
             </Button>
