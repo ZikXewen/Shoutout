@@ -1,5 +1,5 @@
 import axios from "axios";
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({ baseURL: "https://shoutoutofficial.herokuapp.com" });
 
 export const countPosts = () => API.get("/posts/count");
 export const fetchPosts = (page, sortType, filter) =>
