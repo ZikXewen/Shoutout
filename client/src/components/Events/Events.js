@@ -36,7 +36,7 @@ export default () => {
           ))}
         </Container>
       ) : (
-        <CircularProgress />
+        <CircularProgress className={classes.events} />
       )}
     </Box>
   );

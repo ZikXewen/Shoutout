@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   Collapse,
   Grid,
@@ -20,7 +19,6 @@ import useStyles from "./styles";
 export default ({ event }) => {
   const classes = useStyles();
   const [openDescription, setOpenDescription] = useState(false);
-  const [enableComment, setEnableComment] = useState(false);
   return (
     <Card className={classes.card}>
       <CardActionArea onClick={() => setOpenDescription(!openDescription)}>

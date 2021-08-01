@@ -111,12 +111,12 @@ export default () => {
                 onChange={(e) => {
                   setFormData({
                     ...formData,
-                    tags: e.target.value,
+                    tags: e.target.value
+                      .replace(/\s\s+/g, " ")
+                      .replace(/^\s|#/g, ""),
                   });
                 }}
-                value={formData.tags
-                  .replace(/\s\s+/g, " ")
-                  .replace(/^\s|#/g, "")}
+                value={formData.tags}
                 inputProps={{ maxLength: 50 }}
               />
             </Collapse>

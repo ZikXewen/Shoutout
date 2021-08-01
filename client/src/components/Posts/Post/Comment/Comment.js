@@ -70,7 +70,7 @@ export default ({ postId, open }) => {
           <SendIcon fontSize="small" />
         </IconButton>
       </Box>
-      {comments[0] ? (
+      {comments[0] && (
         <Box marginTop="10px">
           <Pagination
             count={Math.ceil(count / 10)}
@@ -96,8 +96,6 @@ export default ({ postId, open }) => {
             )}
           </List>
         </Box>
-      ) : (
-        <CircularProgress />
       )}
     </Container>
   );
