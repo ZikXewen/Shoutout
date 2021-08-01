@@ -35,3 +35,5 @@ export const fetchEventComments = (eventId, page) =>
   API.get(`/events/${eventId}/comments/${page}`);
 export const createEventComment = (newComment) =>
   API.post(`/events/${newComment.eventId}/comments`, newComment);
+
+export const fetchHello = () => API.get(`/`);

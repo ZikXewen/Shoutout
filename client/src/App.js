@@ -6,6 +6,7 @@ import Feed from "./pages/Feed/Feed";
 import Auth from "./pages/Auth/Auth";
 import Shop from "./pages/Shop/Shop";
 import Init from "./pages/Init/Init";
+import HelloWorld from "./HelloWorld";
 const App = () => {
   const user = useSelector((state) => state.auth);
   return (
@@ -13,6 +14,7 @@ const App = () => {
       {user
         ? user.school
           ? [
+              <Route exact path="/helloworld" component={HelloWorld} />,
               <Route exact path="/shop" component={Shop} />,
               <Redirect exact from="/auth" to="/" />,
               <Route
