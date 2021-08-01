@@ -66,13 +66,22 @@ const Navbar = () => {
             <Typography variant="h5">Shoutout</Typography>
           </ListItem>
 
-          <ListItem button>
+          <ListItem
+            button
+            component={Link}
+            to={user.school ? "/posts" : "/initialize"}
+            onClick={drawerClick}
+          >
             <ListItemIcon style={{ paddingLeft: "12px" }}>
               <GroupIcon />
             </ListItemIcon>
             <ListItemText primary="Community" />
           </ListItem>
-          <ListItem button>
+          <ListItem
+            button
+            component={Link}
+            to={user.school ? "/saved" : "/initialize"}
+          >
             <ListItemIcon style={{ paddingLeft: "12px" }}>
               <SaveIcon />
             </ListItemIcon>

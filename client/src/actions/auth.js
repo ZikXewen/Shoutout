@@ -1,4 +1,4 @@
-import { AUTH } from "../constants/actionTypes";
+import { AUTH, FETCH } from "../constants/actionTypes";
 import * as api from "../api";
 
 export const login = (user) => async (dispatch) => {
@@ -34,6 +34,21 @@ export const setSchool = (userId, school) => async (dispatch) => {
     const { data } = await api.setSchool(userId, school);
     localStorage.setItem("user", JSON.stringify(data));
     dispatch({ type: AUTH });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const savePost = (userId, postId) => async (dispatch) => {
+  try {
+    await api.savePost(userId, postId);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const fetchSaved = (userId, page) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchSaved(userId, page);
+    dispatch({ type: FETCH, payload: data });
   } catch (error) {
     console.log(error);
   }

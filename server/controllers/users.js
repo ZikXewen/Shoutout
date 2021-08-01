@@ -7,7 +7,7 @@ export const getUser = async (req, res) => {
   const { googleId, name, imageUrl } = req.body;
   const _id = googleId;
   try {
-    const oldUser = await User.findById(_id);
+    const oldUser = await User.findById(_id, "-savedPosts");
     if (!oldUser) {
       const newUser = await User.create({ _id, name, imageUrl });
       res.status(201).json(newUser);
@@ -56,6 +56,24 @@ export const getSticker = async (req, res) => {
     res.status(200).json(oldUser);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong!" });
+    console.log(error);
+  }
+};
+export const savePost = async (req, res) => {
+  const { userId, postId } = req.params;
+  try {
+    var { savedPosts } = await User.findById(userId, "savedPosts");
+    if (savedPosts.indexOf(postId) === -1) savedPosts = [...savedPosts, postId];
+    else savedPosts.filter((savedPost) => postId !== savedPost);
+    await User.findByIdAndUpdate(userId, { savedPosts });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const fetchSaved = async (req, res) => {
+  const { userId, page } = req.params;
+  try {
+  } catch (error) {
     console.log(error);
   }
 };

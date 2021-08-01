@@ -30,6 +30,7 @@ import { useEffect, useState } from "react";
 import { deletePost, likePost, dislikePost } from "../../../actions/posts";
 import Comment from "./Comment/Comment";
 import useStyles from "./styles";
+import { savePost } from "../../../actions/auth";
 
 const Post = ({ post }) => {
   const dispatch = useDispatch();
@@ -110,7 +111,7 @@ const Post = ({ post }) => {
               <CommentIcon style={{ marginRight: "5px" }} />
               Comments
             </Button>
-            <Button>
+            <Button onClick={() => dispatch(savePost(user._id, post._id))}>
               <SaveIcon style={{ marginRight: "5px" }} />
               Save
             </Button>
@@ -124,7 +125,7 @@ const Post = ({ post }) => {
             <IconButton onClick={() => setEnableComment(!enableComment)}>
               <CommentIcon />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => dispatch(savePost(user._id, post._id))}>
               <SaveIcon />
             </IconButton>
             <IconButton>

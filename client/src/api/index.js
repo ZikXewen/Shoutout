@@ -33,3 +33,8 @@ export const fetchEventComments = (eventId, page) =>
   API.get(`/events/${eventId}/comments/${page}`);
 export const createEventComment = (newComment) =>
   API.post(`/events/${newComment.eventId}/comments`, newComment);
+
+export const savePost = (userId, postId) =>
+  API.post(`/users/save/${userId}/${postId}`);
+export const fetchSaved = (userId, page) =>
+  API.get(`/users/save/${userId}/${page}`);

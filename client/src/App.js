@@ -6,6 +6,8 @@ import Feed from "./pages/Feed/Feed";
 import Auth from "./pages/Auth/Auth";
 import Shop from "./pages/Shop/Shop";
 import Init from "./pages/Init/Init";
+import Saved from "./pages/Saved/Saved";
+
 const App = () => {
   const user = useSelector((state) => state.auth);
   return (
@@ -20,6 +22,7 @@ const App = () => {
                 path={["/posts", "/events", "/announcements"]}
                 component={Feed}
               />,
+              <Route exact path="/saved" component={Saved} />,
               <Redirect from="/" to="/posts" />,
             ]
           : [
