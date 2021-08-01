@@ -28,7 +28,7 @@ export default () => {
   const user = useSelector((state) => state.auth);
   return (
     <>
-      <Navbar />
+      <Navbar setFilter={() => {}} />
       <Grid container justify="center">
         <Grid item xs={10} md={7}>
           <Card className={classes.card}>
@@ -52,7 +52,9 @@ export default () => {
               <Autocomplete
                 options={schoolList}
                 value={school}
-                onChange={(e, newSchool) => setSchool(newSchool)}
+                onChange={(e, newSchool) =>
+                  setSchool(newSchool?.replace(/\//g, ""))
+                }
                 fullWidth
                 className={classes.title}
                 renderInput={(params) => (

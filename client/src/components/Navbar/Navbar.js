@@ -31,9 +31,7 @@ const Navbar = ({ setFilter }) => {
   const drawerClick = () => {
     setOpen(!open);
   };
-  useEffect(() => {
-    if (setFilter === undefined) setFilter = () => {};
-  }, []);
+
   return (
     <>
       <AppBar className={classes.appbar}>
