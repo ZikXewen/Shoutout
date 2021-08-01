@@ -94,10 +94,9 @@ const Post = ({ post }) => {
           </Typography>
           <List className={classes.tags}>
             {post.tags.map((tag) => (
-              <ListItem
-                className={classes.tag}
-                disableGutters
-              >{`#${tag}`}</ListItem>
+              <ListItem className={classes.tag} disableGutters button>
+                <i onClick={() => {}}>{`#${tag}`}</i>
+              </ListItem>
             ))}
           </List>
           <Box paddingX={mdScreen ? "38%" : "30%"}>

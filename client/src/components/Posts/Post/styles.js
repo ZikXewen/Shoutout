@@ -13,7 +13,8 @@ export default makeStyles({
   },
   tag: {
     width: "fit-content",
-    paddingRight: "15px",
+    padding: "5px 7px",
+    borderRadius: "3px",
   },
   col: {
     display: "flex",

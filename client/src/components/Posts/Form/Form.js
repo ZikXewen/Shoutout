@@ -138,6 +138,7 @@ export default () => {
             onClick={() => {
               setStickerPop(true);
             }}
+            disabled
           >
             Add Stickers
           </Button>

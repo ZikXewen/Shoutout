@@ -15,6 +15,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import GroupIcon from "@material-ui/icons/Group";
 import PersonIcon from "@material-ui/icons/Person";
 import InfoIcon from "@material-ui/icons/Info";
+import SaveIcon from "@material-ui/icons/Bookmark";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -64,6 +65,7 @@ const Navbar = () => {
             </IconButton>
             <Typography variant="h5">Shoutout</Typography>
           </ListItem>
+
           <ListItem button>
             <ListItemIcon style={{ paddingLeft: "12px" }}>
               <GroupIcon />
@@ -72,11 +74,17 @@ const Navbar = () => {
           </ListItem>
           <ListItem button>
             <ListItemIcon style={{ paddingLeft: "12px" }}>
+              <SaveIcon />
+            </ListItemIcon>
+            <ListItemText primary="Saved Posts" />
+          </ListItem>
+          <ListItem button disabled>
+            <ListItemIcon style={{ paddingLeft: "12px" }}>
               <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="Profile" />
           </ListItem>
-          <ListItem button>
+          <ListItem button disabled>
             <ListItemIcon style={{ paddingLeft: "12px" }}>
               <InfoIcon />
             </ListItemIcon>

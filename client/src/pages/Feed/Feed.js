@@ -43,8 +43,13 @@ const Feed = () => {
           </Container>
         </Grid>
       </Grid>
-      <Button component={Link} to="/shop" className={classes.stickerShop}>
-        Get Stickers!
+      <Button
+        component={Link}
+        to="/shop"
+        className={classes.stickerShop}
+        disabled
+      >
+        Get Stickers (Coming Soon!)
       </Button>
     </>
   );
