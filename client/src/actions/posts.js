@@ -67,7 +67,7 @@ export const fetchComments = (postId, page) => async (dispatch) => {
 };
 export const createComment = (newComment) => async (dispatch) => {
   try {
-    const { data } = await api.createComment(newComment);
+    await api.createComment(newComment);
   } catch (error) {
     console.log(error);
   }
@@ -76,6 +76,13 @@ export const savePost = (postId, userId) => async (dispatch) => {
   try {
     const { data } = await api.savePost(postId, userId);
     dispatch({ type: PATCH, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const reportPost = (postId, userId, reportType) => async (dispatch) => {
+  try {
+    await api.reportPost(postId, userId, reportType);
   } catch (error) {
     console.log(error);
   }

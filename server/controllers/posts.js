@@ -1,5 +1,7 @@
 import Post from "../models/Post.js";
 import Comment from "../models/Comment.js";
+import User from "../models/User.js";
+import line from "@line/bot-sdk";
 
 export const countPosts = async (req, res) => {
   try {
@@ -138,7 +140,7 @@ export const fetchComments = async (req, res) => {
 export const createComment = async (req, res) => {
   const newComment = new Comment({ ...req.body, createdAt: Date.now() });
   try {
-    newComment.save();
+    await newComment.save();
     res.status(200).json(newComment);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong!" });
@@ -156,6 +158,24 @@ export const savePost = async (req, res) => {
     await Post.findByIdAndUpdate(postId, oldPost);
     res.status(200).json(oldPost);
   } catch (error) {
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+};
+export const reportPost = async (req, res) => {
+  const { postId, userId, reportType } = req.params;
+  try {
+    const client = new line.Client({
+      channelAccessToken: process.env.LINE_TOKEN,
+    });
+    const userName = (await User.findById(userId, "name")).name;
+    const postContent = (await Post.findById(postId, "content")).content;
+    await client.pushMessage(process.env.LINE_GROUP_ID, {
+      type: "text",
+      text: `Reporter: ${userName} (${userId})\nPost ID: ${postId}\nPost Content: ${postContent}\nReport Type: ${reportType}`,
+    });
+    res.status(200).send("OK");
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Something went wrong!" });
   }
 };

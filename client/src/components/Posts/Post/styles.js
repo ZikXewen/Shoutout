@@ -40,4 +40,9 @@ export default makeStyles({
     overflowY: "auto",
     width: "100%",
   },
+  reportTypes: {
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "10px",
+  },
 });

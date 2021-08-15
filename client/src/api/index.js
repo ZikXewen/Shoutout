@@ -18,6 +18,8 @@ export const createComment = (newComment) =>
   API.post(`/posts/${newComment.postId}/comments`, newComment);
 export const savePost = (postId, userId) =>
   API.post(`/posts/save/${postId}/${userId}`);
+export const reportPost = (postId, userId, reportType) =>
+  API.get(`/posts/report/${postId}/${userId}/${reportType}`);
 
 export const updateUser = (user) => API.post("/users", user);
 export const getSticker = (userId, stickerName) =>
